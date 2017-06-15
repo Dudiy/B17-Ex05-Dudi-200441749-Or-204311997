@@ -3,7 +3,25 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26403.3
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "B17_Ex05", "B17_Ex05\B17_Ex05.csproj", "{1E0E9A42-2E79-4332-8889-B000E9F47ECD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "B17_Ex05_GameLogic", "B17_Ex05.GameLogic\B17_Ex05_GameLogic.csproj", "{75CF6AA9-04A9-4376-B496-3F1099959016}"
+EndProject
 Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1E0E9A42-2E79-4332-8889-B000E9F47ECD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1E0E9A42-2E79-4332-8889-B000E9F47ECD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1E0E9A42-2E79-4332-8889-B000E9F47ECD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1E0E9A42-2E79-4332-8889-B000E9F47ECD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{75CF6AA9-04A9-4376-B496-3F1099959016}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{75CF6AA9-04A9-4376-B496-3F1099959016}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{75CF6AA9-04A9-4376-B496-3F1099959016}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{75CF6AA9-04A9-4376-B496-3F1099959016}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection

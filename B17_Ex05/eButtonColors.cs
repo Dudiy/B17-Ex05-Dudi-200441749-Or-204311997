@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using System.Windows.Forms;
 
 namespace B17_Ex05
 {
-    internal class PickColorForm : Form
+    public enum eButtonColors
     {
+        Gray = 0,
+        Purple = 'A',
+        Red = 'B',
 
     }
 }

@@ -18,6 +18,11 @@ namespace B17_Ex05
             StartPosition = FormStartPosition.CenterScreen;
         }
 
+        internal byte NumChoices
+        {
+            get { return m_NumChoices; }
+        }
+
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
@@ -38,16 +43,18 @@ namespace B17_Ex05
             // initialize m_ButtonStart
             m_ButtonStart.Width = 40;
             m_ButtonStart.Left = ClientSize.Width - 10 - m_ButtonStart.Width;
-            m_ButtonNumChoices.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            m_ButtonStart.Top = ClientSize.Height - 10 - m_ButtonStart.Height;
+            m_ButtonStart.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             m_ButtonStart.Text = "Start";
             m_ButtonStart.Click += buttonStart_Click;
             AcceptButton = m_ButtonStart;
-
+            Controls.Add(m_ButtonStart);
         }
 
         private void buttonStart_Click(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            DialogResult = DialogResult.OK;
+            Close();
         }
 
         private void buttonNumChoices_Click(object sender, EventArgs e)

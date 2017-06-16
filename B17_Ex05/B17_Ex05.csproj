@@ -37,11 +37,15 @@
     <Compile Include="BoardForm.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="eButtonColors.cs" />
     <Compile Include="InitForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="PickColorForm.cs">
       <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PlayerGuessButton.cs">
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Program.cs" />
   </ItemGroup>

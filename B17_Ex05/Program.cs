@@ -14,9 +14,11 @@ namespace B17_Ex05
 
         private static void run()
         {
-            InitForm initForm = new InitForm();
-            initForm.ShowDialog();
-            GameLogic theGame = new GameLogic(initForm.NumChoices);
+            //InitForm initForm = new InitForm();
+            //initForm.ShowDialog();
+            PickColorForm pcForm = new PickColorForm();
+            pcForm.ShowDialog();
+            //GameLogic theGame = new GameLogic(initForm.NumChoices);
             
         }
     }

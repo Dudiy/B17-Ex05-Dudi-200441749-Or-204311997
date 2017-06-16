@@ -1,14 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace B17_Ex05
+﻿namespace B17_Ex05
 {
     public enum eButtonColors
     {
-        Gray = 0,
+        //LightGray = 0,
         Purple = 'A',
         Red = 'B',
-
+        Green = 'C',
+        Cyan = 'D',
+        Blue = 'E',
+        Yellow = 'F',
+        Brown = 'G',
+        White = 'H'
     }
 }

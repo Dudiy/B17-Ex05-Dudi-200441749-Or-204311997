@@ -9,10 +9,11 @@ namespace B17_Ex05
     {
         public static void Main()
         {
-            run();
+            Run();
         }
 
-        private static void run()
+        // TODO move to other class
+        private static void Run()
         {
             //InitForm initForm = new InitForm();
             //initForm.ShowDialog();

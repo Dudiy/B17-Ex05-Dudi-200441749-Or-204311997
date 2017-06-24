@@ -22,6 +22,11 @@ namespace B17_Ex05
             this.ClientSize = new Size(clientWidth, clientHeight);
         }
 
+        internal Color ColorPicked
+        {
+            get { return m_ColorPicked; }
+        }
+
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
@@ -54,6 +59,7 @@ namespace B17_Ex05
         private void button_Click(object sender, EventArgs e)
         {
             m_ColorPicked = ((PlayerGuessButton)sender).Color;
+            this.Hide();
         }
     }
 }

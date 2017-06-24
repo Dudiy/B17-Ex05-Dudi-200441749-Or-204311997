@@ -41,6 +41,8 @@
     <Compile Include="InitForm.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="CorrectSequenceButtons.cs" />
+    <Compile Include="SequenceButtons.cs" />
     <Compile Include="PickColorForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -51,8 +53,10 @@
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\B17_Ex05.GameLogic\B17_Ex05_GameLogic.csproj">

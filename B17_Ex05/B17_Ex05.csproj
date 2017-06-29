@@ -43,7 +43,6 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="CorrectSequenceButtons.cs" />
-    <Compile Include="RoundUI.cs" />
     <Compile Include="SequenceButtons.cs" />
     <Compile Include="PickColorForm.cs">
       <SubType>Form</SubType>

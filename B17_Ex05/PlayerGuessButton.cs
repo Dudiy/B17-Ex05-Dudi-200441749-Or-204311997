@@ -9,14 +9,15 @@ namespace B17_Ex05
     internal class PlayerGuessButton : Button
     {
         private static readonly byte sr_ButtonSize = 40;
-        private char m_CharValue = ' ';
+        private char m_CharValue;
+        private bool m_Hidden = false;
 
-        public PlayerGuessButton()
+        internal PlayerGuessButton()
         {
             initButton();
         }
 
-        public static byte ButtonSize
+        internal static byte ButtonSize
         {
             get { return sr_ButtonSize; }
         }
@@ -35,7 +36,7 @@ namespace B17_Ex05
             }
         }
 
-        public Color Color
+        internal Color Color
         {
             get { return BackColor; }
             set
@@ -43,6 +44,7 @@ namespace B17_Ex05
                 try
                 {
                     eButtonColors colorValue = (eButtonColors)Enum.Parse(typeof(eButtonColors), value.Name);
+
                     BackColor = value;
                     m_CharValue = (char)colorValue;
                 }
@@ -52,14 +54,31 @@ namespace B17_Ex05
                 }
             }
         }
-        
+
+        internal bool HideColor
+        {
+            get { return m_Hide; }
+            set
+            {
+                if (value)
+                {
+                    BackColor = Color.Black;
+                }
+                else
+                {
+                    SetColorByChar(m_CharValue);
+                }
+                m_Hide = value;
+            }
+        }
+
         // TODO for correct sequence - to change the color without changing the letter
-        public void ColorInBlack()
+        internal void ColorInBlack()
         {
 
         }
 
-        public char CharValue
+        internal char CharValue
         {
             get { return m_CharValue; }
         }
@@ -70,7 +89,5 @@ namespace B17_Ex05
             Height = sr_ButtonSize;
             BackColor = Color.LightGray;
         }
-
-
     }
 }

@@ -27,6 +27,7 @@ namespace B17_Ex05
             foreach (PlayerGuessButton button in m_Buttons)
             {
                 button.SetColorByChar(m_CorrectSequence[charIndex]);
+                button.Enabled = false;
                 button.Hidden = true;
                 charIndex++;
             }

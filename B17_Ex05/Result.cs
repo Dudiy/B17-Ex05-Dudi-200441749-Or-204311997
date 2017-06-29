@@ -10,10 +10,12 @@ namespace B17_Ex05
     internal class Result
     {
         protected readonly List<Button> r_Buttons = new List<Button>();
-        private readonly int r_ButtonSize = (int)(0.45 * LetterSequence.LengthOfSequence);
-        private readonly byte r_PaddingBetweenButtons = (byte)(0.05 * LetterSequence.LengthOfSequence);
+        private readonly int r_ButtonSize = (int)(0.45 * PlayerGuessButton.ButtonSize);
+        private readonly byte r_PaddingBetweenButtons = (byte)(0.05 * PlayerGuessButton.ButtonSize);
         private int m_Top = 0;
         private int m_Left = 0;
+        private int m_Right = 0;
+        private const byte k_PaddingAround = 5;
         private static readonly Color sr_CorrectGuessColor = Color.Black;
         private static readonly Color sr_MisplacedGuessColor= Color.Yellow;
 
@@ -29,33 +31,40 @@ namespace B17_Ex05
             get { return r_Buttons; }
         }
 
+        internal int Right
+        {
+            get { return m_Right; }
+        }
+
         // ==================================================== Methods ====================================================
 
         private void initButtons()
         {
             int currTop = m_Top;
-            int currLeft = m_Left;
+            int currLeft = m_Left + k_PaddingAround;
             int numButtons = LetterSequence.LengthOfSequence;
 
             for (int i = 0; i < numButtons; i++)
             {
                 Button newButton = new Button();
 
+                if (i == numButtons / 2)
+                {
+                    currTop = m_Top + r_ButtonSize + r_PaddingBetweenButtons;
+                    currLeft = m_Left + k_PaddingAround;
+                }
+
                 newButton.Width = r_ButtonSize;
                 newButton.Height = r_ButtonSize;
                 newButton.BackColor = Color.LightGray;
-                newButton.IsAccessible = false;
+                newButton.Enabled = false;
                 newButton.Top = currTop;
                 newButton.Left = currLeft;
                 currLeft += r_ButtonSize + r_PaddingBetweenButtons;
                 r_Buttons.Add(newButton);
-
-                if (i == numButtons / 2)
-                {
-                    currTop = m_Top + r_ButtonSize + r_PaddingBetweenButtons;
-                    currLeft = m_Left;
-                }
             }
+
+            m_Right = currLeft + k_PaddingAround;
         }
 
         internal void SetResult(int i_NumOfCorrectGuesses, int i_NumOfCorrectLettersInWrongPositions)

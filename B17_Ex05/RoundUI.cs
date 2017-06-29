@@ -9,10 +9,12 @@ namespace B17_Ex05
 {
     internal class RoundUI
     {
+        public event Action<object> SubmitClicked;
         SequenceButtons m_SequenceButtons;
         private readonly Result m_Result;
         private int m_Top = 0;
         private int m_Left = 0;
+        private int m_Right = 0;
         private bool m_IsActive = false;
         private Button m_SubmitButton = new Button();
         private Round m_RoundLogic;
@@ -25,8 +27,25 @@ namespace B17_Ex05
             m_Left = i_Left;
             m_SequenceButtons = new SequenceButtons(m_Top, m_Left);
             initSubmitButton();
-            int resultLeft = m_SubmitButton.Left + m_SubmitButton.Width + 5;
+            int resultLeft = m_SubmitButton.Right + 10;
             m_Result = new Result(m_Top, resultLeft);
+            m_Right = Result.Right;
+        }
+
+        internal int Right
+        {
+            get { return m_Right; }
+        }
+
+        internal bool IsActive
+        {
+            get { return m_IsActive; }
+            set
+            {
+                m_IsActive = value;
+                m_SequenceButtons.SetButtonsState(value);
+                m_SubmitButton.Enabled = value;
+            }
         }
 
         internal Result Result
@@ -34,37 +53,13 @@ namespace B17_Ex05
             get { return m_Result; }
         }
 
-        //internal byte CorrectGuesses
-        //{
-        //    get { return m_CorrectGuesses; }
-        //    set
-        //    {
-        //        if (value <= LetterSequence.LengthOfSequence)
-        //        {
-        //            m_CorrectGuesses = value;
-        //        }
-        //        else
-        //        {
-        //            throw new ArgumentException("Invalid number of correct guesses");
-        //        }
-        //    }
-        //}
-
-        //internal byte MisplacedGuesses
-        //{
-        //    get { return m_MisplacedGuesses; }
-        //    set
-        //    {
-        //        if (value <= LetterSequence.LengthOfSequence)
-        //        {
-        //            m_MisplacedGuesses = value;
-        //        }
-        //        else
-        //        {
-        //            throw new ArgumentException("Invalid number of misplaced guesses");
-        //        }
-        //    }
-        //}
+        private void OnSubmitClick()
+        {
+            if (SubmitClicked != null)
+            {
+                SubmitClicked.Invoke(this);
+            }
+        }
 
         internal Round RoundLogic
         {
@@ -106,9 +101,15 @@ namespace B17_Ex05
             m_SubmitButton.Height = PlayerGuessButton.ButtonSize / 2;
             m_SubmitButton.Width = PlayerGuessButton.ButtonSize;
             m_SubmitButton.Top = m_Top + PlayerGuessButton.ButtonSize / 4;
-            m_SubmitButton.Left = m_SubmitButton.Right + 5;
+            m_SubmitButton.Left = m_SequenceButtons.Right + 5;
             m_SubmitButton.Text = "-->>";
-            m_SubmitButton.IsAccessible = false;
+            m_SubmitButton.Enabled = false;
+            m_SubmitButton.Click += SubmitButton_Click; ;
+        }
+
+        private void SubmitButton_Click(object sender, EventArgs e)
+        {
+            OnSubmitClick();
         }
 
         internal bool AllButtonsAreSet()

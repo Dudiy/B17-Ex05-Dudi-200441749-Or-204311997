@@ -32,7 +32,8 @@ namespace B17_Ex05
         {
             try
             {
-                eButtonColors colorValue = (eButtonColors)Enum.Parse(typeof(eButtonColors), i_Char.ToString());
+                //eButtonColors colorValue = (eButtonColors)Enum.Parse(typeof(eButtonColors), i_Char.ToString());
+                eButtonColors colorValue = (eButtonColors)i_Char;
                 BackColor = Color.FromName(colorValue.ToString());
                 m_CharValue = i_Char;
                 m_IsSet = true;

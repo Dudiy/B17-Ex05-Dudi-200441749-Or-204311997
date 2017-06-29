@@ -9,13 +9,22 @@ namespace B17_Ex05
     internal class InitForm : Form
     {
         private Button m_ButtonStart = new Button();
-        private Button m_ButtonNumChoices = new Button();        
+        private Button m_ButtonNumChoices = new Button();
         private byte m_NumChoices = GameLogic.MinNumOfGuesses;
 
         internal InitForm()
         {
+            initializeForm();
+        }
+
+        private void initializeForm()
+        {
             Text = "Bool Pgia";
             StartPosition = FormStartPosition.CenterScreen;
+            MaximizeBox = false;
+            MinimizeBox = false;
+            StartPosition = FormStartPosition.CenterScreen;
+            FormBorderStyle = FormBorderStyle.Fixed3D;
         }
 
         internal byte NumChoices

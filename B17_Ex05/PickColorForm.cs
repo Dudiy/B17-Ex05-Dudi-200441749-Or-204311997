@@ -16,10 +16,19 @@ namespace B17_Ex05
 
         public PickColorForm()
         {
+            initializeForm();
+        }
+
+        private void initializeForm()
+        {
             // we know that there are 8 colors to pick from!            
             int clientWidth = (PlayerGuessButton.ButtonSize * 4) + (k_PaddingFromEdge * 2) + (k_PaddingBetweenButtons * 3);
             int clientHeight = (PlayerGuessButton.ButtonSize * 2) + (k_PaddingFromEdge * 2) + (k_PaddingBetweenButtons * 1);
-            this.ClientSize = new Size(clientWidth, clientHeight);
+            ClientSize = new Size(clientWidth, clientHeight);
+            MaximizeBox = false;
+            MinimizeBox = false;
+            StartPosition = FormStartPosition.CenterParent;
+            FormBorderStyle = FormBorderStyle.Fixed3D;
         }
 
         internal Color ColorPicked
@@ -59,6 +68,7 @@ namespace B17_Ex05
         private void button_Click(object sender, EventArgs e)
         {
             m_ColorPicked = ((PlayerGuessButton)sender).Color;
+            this.DialogResult = DialogResult.OK;
             this.Hide();
         }
     }

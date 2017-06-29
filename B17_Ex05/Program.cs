@@ -9,18 +9,12 @@ namespace B17_Ex05
     {
         public static void Main()
         {
-            Run();
+            GameManager gameManager = new GameManager();
         }
 
         // TODO move to other class
         private static void Run()
         {
-            //InitForm initForm = new InitForm();
-            //initForm.ShowDialog();
-            PickColorForm pcForm = new PickColorForm();
-            pcForm.ShowDialog();
-            //GameLogic theGame = new GameLogic(initForm.NumChoices);
-            
         }
     }
 }

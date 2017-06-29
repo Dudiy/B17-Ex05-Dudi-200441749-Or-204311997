@@ -26,7 +26,7 @@ namespace B17_Ex05
             m_SequenceButtons = new SequenceButtons(m_Top, m_Left);
             initSubmitButton();
             int resultLeft = m_SubmitButton.Left + m_SubmitButton.Width + 5;
-            Result m_result = new Result(m_Top, resultLeft);
+            m_Result = new Result(m_Top, resultLeft);
         }
 
         internal Result Result
@@ -79,7 +79,7 @@ namespace B17_Ex05
 
         internal SequenceButtons SequenceButtons
         {
-            get { return SequenceButtons; }
+            get { return m_SequenceButtons; }
         }
 
         internal Button SubmitButton

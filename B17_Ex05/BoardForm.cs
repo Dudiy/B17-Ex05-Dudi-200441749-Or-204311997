@@ -75,6 +75,7 @@ namespace B17_Ex05
             {
                 SubmitClicked(round);
                 r_Rounds[m_ActiveRoundInd].IsActive = false;
+                // TODO if at the last round stop game
                 m_ActiveRoundInd++;
                 r_Rounds[m_ActiveRoundInd].IsActive = true;
             }

@@ -24,7 +24,13 @@ namespace B17_Ex05
             initButtons();
         }
 
+        internal List<Button> Buttons
+        {
+            get { return r_Buttons; }
+        }
+
         // ==================================================== Methods ====================================================
+
         private void initButtons()
         {
             int currTop = m_Top;

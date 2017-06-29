@@ -19,8 +19,17 @@ namespace B17_Ex05
         public BoardForm(byte i_NumRounds)
         {
             m_GameLogic = new GameLogic(i_NumRounds);
-            m_CorrectSequence = new CorrectSequenceButtons(m_CorrectSequencePos, m_GameLogic.ComputerSequence);
+            initCorrectSequence();
             initRounds(i_NumRounds);
+        }
+
+        private void initCorrectSequence()
+        {
+            m_CorrectSequence = new CorrectSequenceButtons(m_CorrectSequencePos, m_GameLogic.ComputerSequence);
+            foreach (PlayerGuessButton button in m_CorrectSequence.Buttons)
+            {
+                Controls.Add(button);
+            }
         }
 
         private void initRounds(byte i_NumRounds)
@@ -33,9 +42,18 @@ namespace B17_Ex05
                 RoundUI newRound = new RoundUI(top, left);
 
                 addSequenceButtonsToControls(newRound.SequenceButtons);
-                newRound.SubmitButton.Click += SubmitButton_Click;
                 Controls.Add(newRound.SubmitButton);
+                addResultButtonsToControls(newRound.Result);
+                newRound.SubmitButton.Click += SubmitButton_Click;
                 r_Rounds.Add(newRound);
+            }
+        }
+
+        private void addResultButtonsToControls(Result i_Result)
+        {
+            foreach (Button button in i_Result.Buttons)
+            {
+                Controls.Add(button);
             }
         }
 
@@ -50,10 +68,10 @@ namespace B17_Ex05
         private void SubmitButton_Click(object sender, EventArgs e)
         {
             RoundUI round = sender as RoundUI;
+
             if (round.AllButtonsAreSet())
             {
-                SubmitClickedEventArgs args = e as SubmitClickedEventArgs;
-                SubmitClicked(round, args.StringSubmitted);
+                SubmitClicked(round);
             }
             else
             {
@@ -61,14 +79,12 @@ namespace B17_Ex05
             }
         }
 
-        internal void SubmitClicked(RoundUI i_RoundUI, string i_SequenceSubmitted)
+        internal void SubmitClicked(RoundUI i_RoundUI)
         {
-            byte correctGuessesReturned;
-            byte missplacedGuessesReturned;
-
-            m_GameLogic.PlayRound(i_SequenceSubmitted, out correctGuessesReturned, out missplacedGuessesReturned);
-            i_RoundUI.CorrectGuesses = correctGuessesReturned;
-            i_RoundUI.MisplacedGuesses = missplacedGuessesReturned;
+            // When the RoundLogic property is set, the Result buttons are updated
+            i_RoundUI.RoundLogic = m_GameLogic.PlayRound(i_RoundUI.GetStringValue());
+            //TODO is this needed to update the colors?
+            Refresh();
         }
     }
 }

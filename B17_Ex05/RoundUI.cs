@@ -10,62 +10,70 @@ namespace B17_Ex05
     internal class RoundUI
     {
         SequenceButtons m_SequenceButtons;
-        private Result m_result;
+        private readonly Result m_Result;
         private int m_Top = 0;
         private int m_Left = 0;
         private bool m_IsActive = false;
         private Button m_SubmitButton = new Button();
         private Round m_RoundLogic;
-        private byte m_CorrectGuesses = 0;
-        private byte m_MisplacedGuesses = 0;
+        //private byte m_CorrectGuesses = 0;
+        //private byte m_MisplacedGuesses = 0;
 
         public RoundUI(int i_Top, int i_Left)
         {
             m_Top = i_Top;
             m_Left = i_Left;
             m_SequenceButtons = new SequenceButtons(m_Top, m_Left);
-            //Result m_result = new Result();
             initSubmitButton();
+            int resultLeft = m_SubmitButton.Left + m_SubmitButton.Width + 5;
+            Result m_result = new Result(m_Top, resultLeft);
         }
 
-        internal byte CorrectGuesses
+        internal Result Result
         {
-            get { return m_CorrectGuesses; }
-            set
-            {
-                if (value <= LetterSequence.LengthOfSequence)
-                {
-                    m_CorrectGuesses = value;
-                }
-                else
-                {
-                    throw new ArgumentException("Invalid number of correct guesses");
-                }
-            }
+            get { return m_Result; }
         }
 
-        internal byte MisplacedGuesses
-        {
-            get { return m_MisplacedGuesses; }
-            set
-            {
-                if (value <= LetterSequence.LengthOfSequence)
-                {
-                    m_MisplacedGuesses = value;
-                }
-                else
-                {
-                    throw new ArgumentException("Invalid number of misplaced guesses");
-                }
-            }
-        }
+        //internal byte CorrectGuesses
+        //{
+        //    get { return m_CorrectGuesses; }
+        //    set
+        //    {
+        //        if (value <= LetterSequence.LengthOfSequence)
+        //        {
+        //            m_CorrectGuesses = value;
+        //        }
+        //        else
+        //        {
+        //            throw new ArgumentException("Invalid number of correct guesses");
+        //        }
+        //    }
+        //}
+
+        //internal byte MisplacedGuesses
+        //{
+        //    get { return m_MisplacedGuesses; }
+        //    set
+        //    {
+        //        if (value <= LetterSequence.LengthOfSequence)
+        //        {
+        //            m_MisplacedGuesses = value;
+        //        }
+        //        else
+        //        {
+        //            throw new ArgumentException("Invalid number of misplaced guesses");
+        //        }
+        //    }
+        //}
+
         internal Round RoundLogic
         {
-            get { return m_RoundLogic; }
+            //get { return m_RoundLogic; }
             set
             {
+                // TODO should set result stay here or not?
                 m_RoundLogic = value;
-                // update Result buttons
+                m_Result.SetResult(value.NumOfCorrectGuesses, value.NumOfCorrectLetterInWrongPositions);
             }
         }
 
@@ -77,6 +85,19 @@ namespace B17_Ex05
         internal Button SubmitButton
         {
             get { return m_SubmitButton; }
+        }
+
+        public string GetStringValue()
+        {
+
+            StringBuilder stringValue = new StringBuilder();
+
+            foreach (PlayerGuessButton button in m_SequenceButtons.Buttons)
+            {
+                stringValue.Append(button.CharValue);
+            }
+
+            return stringValue.ToString();
         }
 
         private void initSubmitButton()
@@ -94,5 +115,6 @@ namespace B17_Ex05
         {
             return m_SequenceButtons.allButtonsAreSet();
         }
+
     }
 }

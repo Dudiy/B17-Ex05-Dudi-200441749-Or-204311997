@@ -80,7 +80,7 @@ namespace B17_Ex05_GameLogic
 
         // ==================================================== Methods ====================================================
         // gets user input from the UI and update the current Round
-        public void PlayRound(string i_UserInput, out byte o_NumCorrect, out byte o_NumMissplaced)
+        public Round PlayRound(string i_UserInput)
         {
             Round currentRound = new Round(i_UserInput);
 
@@ -96,8 +96,7 @@ namespace B17_Ex05_GameLogic
                 m_CurrentGameState = eGameState.PlayerLost;
             }
 
-            o_NumCorrect = currentRound.NumOfCorrectGuesses;
-            o_NumMissplaced = currentRound.NumOfCorrectLetterInWrongPositions;
+            return currentRound;
         }
 
         public void EndGame()

@@ -24,6 +24,7 @@ namespace B17_Ex05
                 button.SetColorByChar(m_CorrectSequence[charIndex]);
                 charIndex++;
             }
+
         }
     }
 }

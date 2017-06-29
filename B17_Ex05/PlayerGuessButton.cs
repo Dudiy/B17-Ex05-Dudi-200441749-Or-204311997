@@ -55,9 +55,9 @@ namespace B17_Ex05
             }
         }
 
-        internal bool HideColor
+        internal bool Hidden
         {
-            get { return m_Hide; }
+            get { return m_Hidden; }
             set
             {
                 if (value)
@@ -68,7 +68,7 @@ namespace B17_Ex05
                 {
                     SetColorByChar(m_CharValue);
                 }
-                m_Hide = value;
+                m_Hidden = value;
             }
         }
 

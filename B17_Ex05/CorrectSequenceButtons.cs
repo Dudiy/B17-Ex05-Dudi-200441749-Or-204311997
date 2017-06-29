@@ -21,7 +21,7 @@ namespace B17_Ex05
             byte charIndex = 0;
             foreach (PlayerGuessButton button in m_Buttons)
             {
-                button.SetColorByChar(m_CorrectSequence[charIndex]);
+                button.SetColorByChar(m_CorrectSequence[charIndex]);               
                 charIndex++;
             }
         }

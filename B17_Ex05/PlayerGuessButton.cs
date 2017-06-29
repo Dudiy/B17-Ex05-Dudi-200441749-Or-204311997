@@ -9,7 +9,7 @@ namespace B17_Ex05
     internal class PlayerGuessButton : Button
     {
         private static readonly byte sr_ButtonSize = 40;
-        private char m_CharValue;
+        private char m_CharValue = ' ';
 
         public PlayerGuessButton()
         {

@@ -9,11 +9,16 @@ namespace B17_Ex05
     {
         private string m_CorrectSequence;
 
-        public CorrectSequenceButtons(int i_Top, int i_Left, string i_CorrectSequence) 
+        internal CorrectSequenceButtons(int i_Top, int i_Left, string i_CorrectSequence) 
             : base(i_Top, i_Left)
         {
             m_CorrectSequence = i_CorrectSequence;
             initButtons();
+        }
+
+        internal CorrectSequenceButtons(Point i_Point, string i_CorrectSequence) 
+            : this(i_Point.X, i_Point.Y, i_CorrectSequence)
+        {
         }
 
         private void initButtons()

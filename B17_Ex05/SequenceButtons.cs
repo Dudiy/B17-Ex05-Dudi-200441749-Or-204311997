@@ -13,6 +13,7 @@ namespace B17_Ex05
         private byte m_PaddingBetweenButtons = 5;
         private int m_Top = 0;
         private int m_Left = 0;
+        private int m_Right = 0;
         private static readonly PickColorForm m_PickColorForm = new PickColorForm();
 
         internal SequenceButtons(int i_Top, int i_Left)
@@ -26,6 +27,16 @@ namespace B17_Ex05
 
         // ==================================================== Properties ====================================================
         
+        internal List<PlayerGuessButton> Buttons
+        {
+            get { return m_Buttons; }
+        }
+
+        internal int Right
+        {
+            get { return m_Right; }
+        }
+
         private void initButtons()
         {            
             int currLeft = m_Left;
@@ -38,6 +49,7 @@ namespace B17_Ex05
                 currLeft += newButton.Width + m_PaddingBetweenButtons;
                 newButton.Click += Button_Click;
             }
+            m_Right = currLeft + PlayerGuessButton.ButtonSize;
         }
 
         private void Button_Click(object sender, EventArgs e)
@@ -63,6 +75,22 @@ namespace B17_Ex05
                 // button.Click -= Button_Click;
                 button.IsAccessible = false;
             }
+        }
+
+        public bool allButtonsAreSet()
+        {
+            bool allSet = true;
+
+            foreach (PlayerGuessButton button in m_Buttons)
+            {
+                if (!button.IsSet)
+                {
+                    allSet = false;
+                    break;
+                }
+            }
+
+            return allSet;
         }
     }
 }

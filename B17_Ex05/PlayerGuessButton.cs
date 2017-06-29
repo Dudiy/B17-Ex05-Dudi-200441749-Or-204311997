@@ -11,10 +11,16 @@ namespace B17_Ex05
         private static readonly byte sr_ButtonSize = 40;
         private char m_CharValue;
         private bool m_Hidden = false;
+        private bool m_IsSet = false;
 
         internal PlayerGuessButton()
         {
             initButton();
+        }
+
+        internal bool IsSet
+        {
+            get { return m_IsSet; }
         }
 
         internal static byte ButtonSize
@@ -29,6 +35,7 @@ namespace B17_Ex05
                 eButtonColors colorValue = (eButtonColors)Enum.Parse(typeof(eButtonColors), i_Char.ToString());
                 BackColor = Color.FromName(colorValue.ToString());
                 m_CharValue = i_Char;
+                m_IsSet = true;
             }
             catch
             {
@@ -47,6 +54,7 @@ namespace B17_Ex05
 
                     BackColor = value;
                     m_CharValue = (char)colorValue;
+                    m_IsSet = true;
                 }
                 catch
                 {
@@ -70,12 +78,6 @@ namespace B17_Ex05
                 }
                 m_Hidden = value;
             }
-        }
-
-        // TODO for correct sequence - to change the color without changing the letter
-        internal void ColorInBlack()
-        {
-
         }
 
         internal char CharValue

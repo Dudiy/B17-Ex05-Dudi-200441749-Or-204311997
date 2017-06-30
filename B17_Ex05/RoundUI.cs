@@ -89,6 +89,20 @@ namespace B17_Ex05
             }
         }
 
+        internal List<Button> Buttons
+        {
+            get
+            {
+                List<Button> allRoundButtons = new List<Button>();
+
+                allRoundButtons.AddRange(SequenceButtons.Buttons);
+                allRoundButtons.Add(SubmitButton);
+                allRoundButtons.AddRange(m_Result.Buttons);
+
+                return allRoundButtons;
+            }
+        }
+
         // ==================================================== Methods ====================================================
         // initialize all buttons of a single RoundUI object
         private void initAllButtons()
@@ -118,20 +132,6 @@ namespace B17_Ex05
             if (SubmitClicked != null)
             {
                 SubmitClicked.Invoke(this);
-            }
-        }
-
-        internal List<Button> Buttons
-        {
-            get
-            {
-                List<Button> allRoundButtons = new List<Button>();
-
-                allRoundButtons.AddRange(SequenceButtons.Buttons);
-                allRoundButtons.Add(SubmitButton);
-                allRoundButtons.AddRange(m_Result.Buttons);
-
-                return allRoundButtons;
             }
         }
 

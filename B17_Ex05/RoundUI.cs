@@ -49,12 +49,21 @@ namespace B17_Ex05
         private void initAllButtons()
         {
             m_SequenceButtons = new SequenceButtons(m_Top, m_Left);
+            m_SequenceButtons.ButtonClicked += sequenceButtons_ButtonClicked;
             initSubmitButton();
             m_Result = new Result(m_Top, m_SubmitButton.Right);
             // add all buttons to m_AllRoundButtons
             r_AllRoundButtons.AddRange(m_SequenceButtons.Buttons);
             r_AllRoundButtons.Add(m_SubmitButton);
             r_AllRoundButtons.AddRange(m_Result.Buttons);
+        }
+
+        private void sequenceButtons_ButtonClicked(object sender, EventArgs e)
+        {
+            if (AllButtonsAreSet())
+            {
+                m_SubmitButton.Enabled = true;
+            }
         }
 
         private void initSubmitButton()
@@ -95,7 +104,10 @@ namespace B17_Ex05
             {
                 m_IsActive = value;
                 m_SequenceButtons.SetButtonsState(value);
-                m_SubmitButton.Enabled = value;
+                if (value == false)
+                {
+                    m_SubmitButton.Enabled = value;
+                }
             }
         }
 

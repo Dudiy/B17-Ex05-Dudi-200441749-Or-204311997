@@ -18,8 +18,12 @@ using B17_Ex05_GameLogic;
 
 namespace B17_Ex05
 {
+    internal delegate void ButtonClickEventHandler(object sender, EventArgs e);
+
     internal class SequenceButtons
     {
+        internal event ButtonClickEventHandler ButtonClicked;
+        // according to stylecop a blank line is required here (?)
         private const short k_PaddingBetweenButtons = 5;
         private static readonly PickColorForm sr_PickColorForm = new PickColorForm();
         protected readonly List<Button> r_Buttons = new List<Button>(LetterSequence.LengthOfSequence);
@@ -27,11 +31,36 @@ namespace B17_Ex05
         private int m_Left = 0;
         private int m_Right = 0;
 
+        // ==================================================== Initialize ============================================================
         internal SequenceButtons(int i_Top, int i_Left)
         {
             m_Top = i_Top;
             m_Left = i_Left;
             initButtons();
+        }
+
+        /*  initialize all PlayerGuessButtons in the sequence.
+         *  By default the buttons are light grey and disabled.
+         *  The buttons are positioned one after the other with padding between them */
+        private void initButtons()
+        {
+            int currLeft = m_Left;
+
+            // there are as many buttons as there are letters in GameLogic's letter sequence
+            for (int i = 0; i < LetterSequence.LengthOfSequence; i++)
+            {
+                PlayerGuessButton newButton = new PlayerGuessButton();
+
+                newButton.Top = m_Top;
+                newButton.Left = currLeft;
+                newButton.Enabled = false;
+                newButton.Click += button_Click;
+                r_Buttons.Add(newButton);
+                currLeft += newButton.Width + k_PaddingBetweenButtons;
+            }
+
+            // after all buttons are positioned currLeft is the right of the last button with padding
+            m_Right = currLeft + k_PaddingBetweenButtons;
         }
 
         // ==================================================== Properties =========================================================
@@ -77,38 +106,24 @@ namespace B17_Ex05
         /*  Event listener for when a button is clicked.
          *  Shows the pickColor dialog and updates the color according to the user's choice.
          *  Will not update if the user closed the pickColor form without selecting a color */
-        protected virtual void Button_Click(object sender, EventArgs e)
+        private void button_Click(object sender, EventArgs e)
         {
             DialogResult result = sr_PickColorForm.ShowDialog();
 
             if (result == DialogResult.OK)
             {
                 ((PlayerGuessButton)sender).Color = sr_PickColorForm.ColorPicked;
+                OnButtonClick(null);
             }
         }
 
-        /*  initialize all PlayerGuessButtons in the sequence.
-         *  By default the buttons are light grey and disabled.
-         *  The buttons are positioned one after the other with padding between them */
-        private void initButtons()
+        protected virtual void OnButtonClick(EventArgs e)
         {
-            int currLeft = m_Left;
-
-            // there are as many buttons as there are letters in GameLogic's letter sequence
-            for (int i = 0; i < LetterSequence.LengthOfSequence; i++)
+            if (ButtonClicked != null)
             {
-                PlayerGuessButton newButton = new PlayerGuessButton();
-
-                newButton.Top = m_Top;
-                newButton.Left = currLeft;
-                newButton.Enabled = false;
-                newButton.Click += Button_Click;
-                r_Buttons.Add(newButton);
-                currLeft += newButton.Width + k_PaddingBetweenButtons;
+                ButtonClicked.Invoke(this, null);
             }
-
-            // after all buttons are positioned currLeft is the right of the last button with padding
-            m_Right = currLeft + k_PaddingBetweenButtons;
         }
+
     }
 }

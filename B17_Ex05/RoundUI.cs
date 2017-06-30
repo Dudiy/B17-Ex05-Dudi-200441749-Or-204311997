@@ -48,7 +48,7 @@ namespace B17_Ex05
         // initialize all buttons of a single RoundUI object
         private void initAllButtons()
         {
-            m_SequenceButtons = new SequenceButtons(m_Top, m_Left);
+            m_SequenceButtons = new SequenceButtons(m_Top, m_Left);            
             m_SequenceButtons.ButtonClicked += sequenceButtons_ButtonClicked;
             initSubmitButton();
             m_Result = new Result(m_Top, m_SubmitButton.Right);
@@ -58,6 +58,8 @@ namespace B17_Ex05
             r_AllRoundButtons.AddRange(m_Result.Buttons);
         }
 
+        /*  Event handler for when a button in the round is clicked.
+            enables the submit if all 4 buttons are colored */
         private void sequenceButtons_ButtonClicked(object sender, EventArgs e)
         {
             if (AllButtonsAreSet())

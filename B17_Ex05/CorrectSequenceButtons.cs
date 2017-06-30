@@ -31,7 +31,7 @@ namespace B17_Ex05
         private void initButtons()
         {
             byte charIndex = 0;
-            foreach (PlayerGuessButton button in m_Buttons)
+            foreach (PlayerGuessButton button in r_Buttons)
             {
                 button.SetColorByChar(m_CorrectSequence[charIndex]);
                 button.Enabled = false;
@@ -43,7 +43,7 @@ namespace B17_Ex05
         // ==================================================== Methods ====================================================
         internal void ShowCorrectGuess()
         {
-            foreach (PlayerGuessButton button in m_Buttons)
+            foreach (PlayerGuessButton button in r_Buttons)
             {
                 button.Hidden = false;
             }

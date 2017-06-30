@@ -23,7 +23,7 @@ namespace B17_Ex05
         private int m_Right = 0;
         private const byte k_PaddingAround = 5;
         private static readonly Color sr_CorrectGuessColor = Color.Black;
-        private static readonly Color sr_MisplacedGuessColor= Color.Yellow;
+        private static readonly Color sr_MisplacedGuessColor = Color.Yellow;
 
         // ==================================================== Initialize ====================================================
         internal Result(int i_Top, int i_Left)

@@ -82,6 +82,20 @@ namespace B17_Ex05
             get { return m_SubmitButton; }
         }
 
+        internal List<Button> Buttons
+        {
+            get
+            {
+                List<Button> allRoundButtons = new List<Button>();
+
+                allRoundButtons.AddRange(SequenceButtons.Buttons);
+                allRoundButtons.Add(SubmitButton);
+                allRoundButtons.AddRange(m_Result.Buttons);
+
+                return allRoundButtons;
+            }
+        }
+
         public string GetStringValue()
         {
 

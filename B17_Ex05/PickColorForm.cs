@@ -1,7 +1,15 @@
-﻿using System;
+﻿/*
+ * B17_Ex05: PickColorForm.cs
+ * 
+ * Inherits from the "Form" class.
+ * 
+ * Written by:
+ * 204311997 - Or Mantzur
+ * 200441749 - Dudi Yecheskel 
+ */
+using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Text;
 using System.Windows.Forms;
 
 namespace B17_Ex05
@@ -12,9 +20,10 @@ namespace B17_Ex05
         private Color m_ColorPicked = Color.LightGray;
         private const byte k_NumButtons = 8;
         private const byte k_PaddingFromEdge = 15;
-        private const byte k_PaddingBetweenButtons = 5;    
+        private const byte k_PaddingBetweenButtons = 5;
 
-        public PickColorForm()
+        // ==================================================== Initialize Form ====================================================
+        internal PickColorForm()
         {
             initializeForm();
         }
@@ -29,11 +38,6 @@ namespace B17_Ex05
             MinimizeBox = false;
             StartPosition = FormStartPosition.CenterParent;
             FormBorderStyle = FormBorderStyle.Fixed3D;
-        }
-
-        internal Color ColorPicked
-        {
-            get { return m_ColorPicked; }
         }
 
         protected override void OnLoad(EventArgs e)
@@ -58,18 +62,25 @@ namespace B17_Ex05
                 // update left and top for next button
                 currentLeftOfButton = newButton.Right + k_PaddingBetweenButtons;
                 if (currentLeftOfButton + PlayerGuessButton.ButtonSize > ClientSize.Width)
-                {                    
+                {
                     currentLeftOfButton = k_PaddingFromEdge;
                     currentTopOfButton = newButton.Bottom + k_PaddingBetweenButtons;
                 }
-            }            
+            }
         }
 
+        // ==================================================== Properties ====================================================
+        internal Color ColorPicked
+        {
+            get { return m_ColorPicked; }
+        }
+
+        // ==================================================== Buttons Events ====================================================
         private void button_Click(object sender, EventArgs e)
         {
             m_ColorPicked = ((PlayerGuessButton)sender).Color;
-            this.DialogResult = DialogResult.OK;
-            this.Hide();
+            DialogResult = DialogResult.OK;
+            Hide();
         }
     }
 }

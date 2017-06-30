@@ -1,7 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
+﻿/*
+ * B17_Ex05: PlayerGuessButton.cs
+ * 
+ * Inherits from the "Button" class.
+ * 
+ * Written by:
+ * 204311997 - Or Mantzur
+ * 200441749 - Dudi Yecheskel 
+ */
+using System;
 using System.Drawing;
-using System.Text;
 using System.Windows.Forms;
 
 namespace B17_Ex05
@@ -13,37 +20,20 @@ namespace B17_Ex05
         private bool m_Hidden = false;
         private bool m_IsSet = false;
 
+        // ==================================================== Initialize ====================================================
         internal PlayerGuessButton()
         {
             initButton();
         }
 
-        internal bool IsSet
+        private void initButton()
         {
-            get { return m_IsSet; }
+            Width = sr_ButtonSize;
+            Height = sr_ButtonSize;
+            BackColor = Color.LightGray;
         }
 
-        internal static byte ButtonSize
-        {
-            get { return sr_ButtonSize; }
-        }
-
-        internal void SetColorByChar(char i_Char)
-        {
-            try
-            {
-                //eButtonColors colorValue = (eButtonColors)Enum.Parse(typeof(eButtonColors), i_Char.ToString());
-                eButtonColors colorValue = (eButtonColors)i_Char;
-                BackColor = Color.FromName(colorValue.ToString());
-                m_CharValue = i_Char;
-                m_IsSet = true;
-            }
-            catch
-            {
-                throw new ArgumentException("The given char is not supported");
-            }
-        }
-
+        // ==================================================== Properties ====================================================
         internal Color Color
         {
             get { return BackColor; }
@@ -64,6 +54,16 @@ namespace B17_Ex05
             }
         }
 
+        internal static byte ButtonSize
+        {
+            get { return sr_ButtonSize; }
+        }
+
+        internal char CharValue
+        {
+            get { return m_CharValue; }
+        }
+
         internal bool Hidden
         {
             get { return m_Hidden; }
@@ -81,16 +81,26 @@ namespace B17_Ex05
             }
         }
 
-        internal char CharValue
+        internal bool IsSet
         {
-            get { return m_CharValue; }
+            get { return m_IsSet; }
         }
 
-        private void initButton()
+        // ==================================================== Methods ====================================================
+        internal void SetColorByChar(char i_Char)
         {
-            Width = sr_ButtonSize;
-            Height = sr_ButtonSize;
-            BackColor = Color.LightGray;
+            try
+            {
+                //eButtonColors colorValue = (eButtonColors)Enum.Parse(typeof(eButtonColors), i_Char.ToString());
+                eButtonColors colorValue = (eButtonColors)i_Char;
+                BackColor = Color.FromName(colorValue.ToString());
+                m_CharValue = i_Char;
+                m_IsSet = true;
+            }
+            catch
+            {
+                throw new ArgumentException("The given char is not supported");
+            }
         }
     }
 }

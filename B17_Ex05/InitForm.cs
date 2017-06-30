@@ -1,6 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿/*
+ * B17_Ex05: InitForm.cs
+ * 
+ * Inherits from the "Form" class.
+ * 
+ * Written by:
+ * 204311997 - Or Mantzur
+ * 200441749 - Dudi Yecheskel 
+ */
+using System;
 using System.Windows.Forms;
 using B17_Ex05_GameLogic;
 
@@ -12,6 +19,7 @@ namespace B17_Ex05
         private Button m_ButtonNumChoices = new Button();
         private byte m_NumChoices = GameLogic.MinNumOfGuesses;
 
+        // ==================================================== Initialize ====================================================
         internal InitForm()
         {
             initializeForm();
@@ -26,11 +34,6 @@ namespace B17_Ex05
             MinimizeBox = false;
             StartPosition = FormStartPosition.CenterScreen;
             FormBorderStyle = FormBorderStyle.Fixed3D;
-        }
-
-        internal byte NumChoices
-        {
-            get { return m_NumChoices; }
         }
 
         protected override void OnLoad(EventArgs e)
@@ -61,6 +64,13 @@ namespace B17_Ex05
             Controls.Add(m_ButtonStart);
         }
 
+        // ==================================================== Properties ====================================================
+        internal byte NumChoices
+        {
+            get { return m_NumChoices; }
+        }
+
+        // ==================================================== Buttons Events ====================================================
         private void buttonStart_Click(object sender, EventArgs e)
         {
             DialogResult = DialogResult.OK;

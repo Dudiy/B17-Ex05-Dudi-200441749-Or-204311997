@@ -1,7 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
+﻿/*
+ * B17_Ex05: CorrectSequenceButtons.cs
+ * 
+ * Inherits from the "SequenceButtons" class.
+ * 
+ * Written by:
+ * 204311997 - Or Mantzur
+ * 200441749 - Dudi Yecheskel 
+ */
 using System.Drawing;
-using System.Text;
 
 namespace B17_Ex05
 {
@@ -9,6 +15,7 @@ namespace B17_Ex05
     {
         private string m_CorrectSequence;
 
+        // ==================================================== Initialize ====================================================
         internal CorrectSequenceButtons(int i_Top, int i_Left, string i_CorrectSequence) 
             : base(i_Top, i_Left)
         {
@@ -33,6 +40,7 @@ namespace B17_Ex05
             }
         }
 
+        // ==================================================== Methods ====================================================
         internal void ShowCorrectGuess()
         {
             foreach (PlayerGuessButton button in m_Buttons)

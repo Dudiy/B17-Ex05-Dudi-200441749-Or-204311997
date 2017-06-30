@@ -1,8 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using B17_Ex05_GameLogic;
-
+﻿/*
+ * B17_Ex05: Program.cs
+ * 
+ * 
+ * Written by:
+ * 204311997 - Or Mantzur
+ * 200441749 - Dudi Yecheskel 
+ */
 namespace B17_Ex05
 {
     public class Program
@@ -10,11 +13,8 @@ namespace B17_Ex05
         public static void Main()
         {
             GameManager gameManager = new GameManager();
-        }
 
-        // TODO move to other class
-        private static void Run()
-        {
+            gameManager.Run();
         }
     }
 }

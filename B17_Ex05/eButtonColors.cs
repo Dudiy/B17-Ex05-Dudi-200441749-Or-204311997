@@ -1,6 +1,13 @@
-﻿namespace B17_Ex05
+﻿/*
+ * B17_Ex05: eButtonColors.cs
+ * 
+ * Written by:
+ * 204311997 - Or Mantzur
+ * 200441749 - Dudi Yecheskel 
+ */
+namespace B17_Ex05
 {
-    public enum eButtonColors
+    internal enum eButtonColors
     {
         //LightGray = 0,
         Purple = 'A',

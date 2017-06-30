@@ -1,6 +1,12 @@
-﻿using System;
+﻿/*
+ * B17_Ex05: Result.cs
+ * 
+ * 
+ * Written by:
+ * 204311997 - Or Mantzur
+ * 200441749 - Dudi Yecheskel 
+ */
 using System.Collections.Generic;
-using System.Text;
 using B17_Ex05_GameLogic;
 using System.Drawing;
 using System.Windows.Forms;
@@ -19,24 +25,13 @@ namespace B17_Ex05
         private static readonly Color sr_CorrectGuessColor = Color.Black;
         private static readonly Color sr_MisplacedGuessColor= Color.Yellow;
 
+        // ==================================================== Initialize ====================================================
         internal Result(int i_Top, int i_Left)
         {
             m_Top = i_Top;
             m_Left = i_Left;
             initButtons();
         }
-
-        internal List<Button> Buttons
-        {
-            get { return r_Buttons; }
-        }
-
-        internal int Right
-        {
-            get { return m_Right; }
-        }
-
-        // ==================================================== Methods ====================================================
 
         private void initButtons()
         {
@@ -67,6 +62,18 @@ namespace B17_Ex05
             m_Right = currLeft + k_PaddingAround;
         }
 
+        // ==================================================== Properties ====================================================
+        internal List<Button> Buttons
+        {
+            get { return r_Buttons; }
+        }
+
+        internal int Right
+        {
+            get { return m_Right; }
+        }
+
+        // ==================================================== Methods ====================================================
         internal void SetResult(int i_NumOfCorrectGuesses, int i_NumOfCorrectLettersInWrongPositions)
         {
             int currentButtonInd = 0;

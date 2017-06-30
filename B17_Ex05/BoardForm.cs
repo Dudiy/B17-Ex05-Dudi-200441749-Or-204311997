@@ -40,12 +40,12 @@ namespace B17_Ex05
             // initialize buttons
             initCorrectSequence();
             initRounds(m_GameLogic.MaxNumOfGuessesFromPlayer);
-            // design
+            // design of form
             ClientSize = clientSize;
             MaximizeBox = false;
             MinimizeBox = false;
             StartPosition = FormStartPosition.CenterScreen;
-            FormBorderStyle = FormBorderStyle.Fixed3D;
+            FormBorderStyle = FormBorderStyle.Fixed3D;            
         }
 
         private void initCorrectSequence()
@@ -85,7 +85,7 @@ namespace B17_Ex05
         }
 
         // ==================================================== Submit Round ====================================================
-        private void RoundSubmitClicked(object sender)
+        private void RoundSubmitClicked(object sender, EventArgs e)
         {
             RoundUI round = sender as RoundUI;
 

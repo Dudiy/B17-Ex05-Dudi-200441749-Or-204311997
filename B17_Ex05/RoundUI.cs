@@ -14,16 +14,18 @@ using System;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
-using B17_Ex05_GameLogic;
 using System.Collections.Generic;
+using B17_Ex05_GameLogic;
 
 namespace B17_Ex05
 {
+    internal delegate void SubmitClickedEventHandler(object sender, EventArgs e);
+
     internal class RoundUI
     {
-        // TODO use delegate or action? what is the correct naming convention?
-        public event Action<object> SubmitClicked;
+        public event SubmitClickedEventHandler SubmitClicked;
         // according to stylecop a blank line is required here (?)
+        private List<Button> m_AllRoundButtons = new List<Button>();
         private Result m_Result;
         private SequenceButtons m_SequenceButtons;
         private Button m_SubmitButton = new Button();
@@ -38,46 +40,10 @@ namespace B17_Ex05
             m_Top = i_Top;
             m_Left = i_Left;
             initAllButtons();
-            m_Right = Result.Right;
+            m_Right = m_Result.Right;
         }
 
         // ==================================================== Properties ====================================================
-        // The right edge of the RoundUI object
-        internal int Right
-        {
-            get { return m_Right; }
-        }
-
-        // When a rounds IsActive property is changed, will update the enable property of all relevant buttons.
-        internal bool IsActive
-        {
-            get { return m_IsActive; }
-            set
-            {
-                m_IsActive = value;
-                m_SequenceButtons.SetButtonsState(value);
-                m_SubmitButton.Enabled = value;
-            }
-        }
-
-        // Get the Result object - for the BoardForm to add all buttons as controls
-        internal Result Result
-        {
-            get { return m_Result; }
-        }
-
-        // Get the SequenceButtons object - for the BoardForm to add all buttons as controls
-        internal SequenceButtons SequenceButtons
-        {
-            get { return m_SequenceButtons; }
-        }
-
-        // Get the SubmitButton - for the BoardForm to the button as a control
-        internal Button SubmitButton
-        {
-            get { return m_SubmitButton; }
-        }
-
         // Set the RoundUI's internal Round reference and update the Result object accordingly
         internal Round RoundLogic
         {
@@ -89,29 +55,69 @@ namespace B17_Ex05
             }
         }
 
+        // return a list of all the buttons in RoundUI for the BoardForm to add as controls
         internal List<Button> Buttons
         {
-            get
+            get { return m_AllRoundButtons; }
+        }
+
+        // When a round's IsActive property is changed, will update the enable property of all relevant buttons accordingly.
+        internal bool IsActive
+        {
+            get { return m_IsActive; }
+            set
             {
-                List<Button> allRoundButtons = new List<Button>();
-
-                allRoundButtons.AddRange(SequenceButtons.Buttons);
-                allRoundButtons.Add(SubmitButton);
-                allRoundButtons.AddRange(m_Result.Buttons);
-
-                return allRoundButtons;
+                m_IsActive = value;
+                m_SequenceButtons.SetButtonsState(value);
+                m_SubmitButton.Enabled = value;
             }
         }
 
+        // The right edge of the RoundUI object
+        internal int Right
+        {
+            get { return m_Right; }
+        }
+
         // ==================================================== Methods ====================================================
+        // Get the set of chars represented by the Round's button colors as a string
+        internal string GetStringValue()
+        {
+            StringBuilder stringValue = new StringBuilder();
+
+            foreach (PlayerGuessButton button in m_SequenceButtons.Buttons)
+            {
+                stringValue.Append(button.CharValue);
+            }
+
+            return stringValue.ToString();
+        }
+
+        // Check if all buttons in the current have a color
+        internal bool AllButtonsAreSet()
+        {
+            return m_SequenceButtons.AllButtonsAreSet();
+        }
+
+        // Notify the BoardForm when submit is clicked and what round was it clicked on
+        protected virtual void OnSubmitClick(EventArgs e)
+        {
+            if (SubmitClicked != null)
+            {
+                SubmitClicked.Invoke(this, e);
+            }
+        }
+
         // initialize all buttons of a single RoundUI object
         private void initAllButtons()
         {
             m_SequenceButtons = new SequenceButtons(m_Top, m_Left);
             initSubmitButton();
-            // TODO change 10 to const
-            int resultLeft = m_SubmitButton.Right + 10;
-            m_Result = new Result(m_Top, resultLeft);
+            m_Result = new Result(m_Top, m_SubmitButton.Right);
+            // add all buttons to m_AllRoundButtons
+            m_AllRoundButtons.AddRange(m_SequenceButtons.Buttons);
+            m_AllRoundButtons.Add(m_SubmitButton);
+            m_AllRoundButtons.AddRange(m_Result.Buttons);
         }
 
         private void initSubmitButton()
@@ -126,36 +132,9 @@ namespace B17_Ex05
             m_SubmitButton.Click += SubmitButton_Click;
         }
 
-        // Notify the BoardForm when submit is clicked and what round was it clicked on
-        private void OnSubmitClick()
-        {
-            if (SubmitClicked != null)
-            {
-                SubmitClicked.Invoke(this);
-            }
-        }
-
-        public string GetStringValue()
-        {
-            StringBuilder stringValue = new StringBuilder();
-
-            foreach (PlayerGuessButton button in m_SequenceButtons.Buttons)
-            {
-                stringValue.Append(button.CharValue);
-            }
-
-            return stringValue.ToString();
-        }
-
         private void SubmitButton_Click(object sender, EventArgs e)
         {
-            OnSubmitClick();
-        }
-
-        // Check if all buttons in the current have a color
-        internal bool AllButtonsAreSet()
-        {
-            return m_SequenceButtons.AllButtonsAreSet();
+            OnSubmitClick(e);
         }
     }
 }

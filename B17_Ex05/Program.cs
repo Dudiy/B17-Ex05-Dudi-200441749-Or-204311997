@@ -1,6 +1,7 @@
 ﻿/*
  * B17_Ex05: Program.cs
  * 
+ * The entry point for the AMAZING "Bul Pgia" game :)
  * 
  * Written by:
  * 204311997 - Or Mantzur

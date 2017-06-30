@@ -9,8 +9,6 @@
  * 204311997 - Or Mantzur
  * 200441749 - Dudi Yecheskel 
  */
-using System.Drawing;
-
 namespace B17_Ex05
 {
     internal class CorrectSequenceButtons : SequenceButtons

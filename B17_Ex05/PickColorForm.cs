@@ -21,15 +21,15 @@ namespace B17_Ex05
 {
     internal class PickColorForm : Form
     {
-        private const byte k_PaddingFromEdge = 15;
-        private const byte k_PaddingBetweenButtons = 5;
+        private const short k_PaddingFromEdge = 10;
+        private const short k_PaddingBetweenButtons = 5;
         private readonly List<PlayerGuessButton> r_Buttons = new List<PlayerGuessButton>();
         private Color m_ColorPicked = Color.LightGray;
 
         // ==================================================== Initialize Form ====================================================
         internal PickColorForm()
         {
-            initializeForm();
+            setFormProperties();
         }
 
         protected override void OnLoad(EventArgs e)
@@ -38,7 +38,7 @@ namespace B17_Ex05
             base.OnLoad(e);
         }
 
-        private void initializeForm()
+        private void setFormProperties()
         {
             StartPosition = FormStartPosition.CenterParent;
             FormBorderStyle = FormBorderStyle.Fixed3D;
@@ -77,7 +77,8 @@ namespace B17_Ex05
 
             // after setting the positions of all buttons update the ClientSize to fit
             int clientWidth = currentLeftOfButton + k_PaddingFromEdge - k_PaddingBetweenButtons;
-            int clientHeight = currentTopOfButton + PlayerGuessButton.ButtonSize + k_PaddingFromEdge;
+            int clientHeight = currentTopOfButton + PlayerGuessButton.ButtonSize + k_PaddingFromEdge;            
+            
             ClientSize = new Size(clientWidth, clientHeight);
         }
 

@@ -17,8 +17,9 @@ namespace B17_Ex05
 {
     internal class InitForm : Form
     {
-        private const int k_ClientWidth = 250;
-        private const int k_ClientHeight = 100;
+        private const short k_ClientWidth = 250;
+        private const short k_ClientHeight = 100;
+        private const short k_PaddingFromEdge = 10;
         private Button m_ButtonStart = new Button();
         private Button m_ButtonNumChoices = new Button();
         private byte m_NumChoices = GameLogic.MinNumOfGuesses;
@@ -26,10 +27,10 @@ namespace B17_Ex05
         // ==================================================== Initialize =========================================================
         internal InitForm()
         {
-            initializeForm();
+            setFormProperties();
         }
 
-        private void initializeForm()
+        private void setFormProperties()
         {
             ClientSize = new Size(k_ClientWidth, k_ClientHeight);
             StartPosition = FormStartPosition.CenterScreen;
@@ -41,29 +42,27 @@ namespace B17_Ex05
 
         protected override void OnLoad(EventArgs e)
         {
-            base.OnLoad(e);
-
             initControls();
+            base.OnLoad(e);
         }
 
         private void initControls()
         {
             // initialize m_ButtonNumChoices
-            m_ButtonNumChoices.Left = 10;
-            m_ButtonNumChoices.Top = 10;
-            m_ButtonNumChoices.Width = ClientSize.Width - 20;
+            m_ButtonNumChoices.Width = ClientSize.Width - (2 * k_PaddingFromEdge);
+            m_ButtonNumChoices.Top = k_PaddingFromEdge;
+            m_ButtonNumChoices.Left = k_PaddingFromEdge;
             m_ButtonNumChoices.Anchor = AnchorStyles.Left | AnchorStyles.Top | AnchorStyles.Right;
             m_ButtonNumChoices.Text = string.Format("Number of chances: {0}", m_NumChoices);
             m_ButtonNumChoices.Click += buttonNumChoices_Click;
             Controls.Add(m_ButtonNumChoices);
             // initialize m_ButtonStart
-            m_ButtonStart.Width = 40;
-            m_ButtonStart.Left = ClientSize.Width - 10 - m_ButtonStart.Width;
-            m_ButtonStart.Top = ClientSize.Height - 10 - m_ButtonStart.Height;
+            m_ButtonStart.Width = ClientSize.Width / 3;
+            m_ButtonStart.Top = ClientSize.Height - k_PaddingFromEdge - m_ButtonStart.Height;
+            m_ButtonStart.Left = ClientSize.Width - k_PaddingFromEdge - m_ButtonStart.Width;
             m_ButtonStart.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             m_ButtonStart.Text = "Start";
             m_ButtonStart.Click += buttonStart_Click;
-            AcceptButton = m_ButtonStart;
             Controls.Add(m_ButtonStart);
         }
 
@@ -73,7 +72,7 @@ namespace B17_Ex05
             get { return m_NumChoices; }
         }
 
-        // ==================================================== Buttons Events =====================================================
+        // ==================================================== Methods =====================================================
         private void buttonStart_Click(object sender, EventArgs e)
         {
             DialogResult = DialogResult.OK;

@@ -67,8 +67,5 @@
       <Name>B17_Ex05_GameLogic</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <None Include="ClassDiagram1.cd" />
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

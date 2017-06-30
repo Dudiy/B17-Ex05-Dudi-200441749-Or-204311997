@@ -19,12 +19,12 @@ namespace B17_Ex05
 {
     internal class Result
     {
-        private const byte k_PaddingAround = 15;
+        private const short k_PaddingAround = 10;
         private static readonly Color sr_CorrectGuessColor = Color.Black;
         private static readonly Color sr_MisplacedGuessColor = Color.Yellow;
         protected readonly List<Button> r_Buttons = new List<Button>();
-        private readonly byte r_ButtonSize = (byte)(0.45 * PlayerGuessButton.ButtonSize);
-        private readonly byte r_PaddingBetweenButtons = (byte)(0.05 * PlayerGuessButton.ButtonSize);
+        private readonly short r_ButtonSize = (short)(0.45 * PlayerGuessButton.ButtonSize);
+        private readonly short r_PaddingBetweenButtons = (short)(0.05 * PlayerGuessButton.ButtonSize);
         private int m_Top = 0;
         private int m_Left = 0;
         private int m_Right = 0;
@@ -34,6 +34,37 @@ namespace B17_Ex05
             m_Top = i_Top;
             m_Left = i_Left;
             initButtons();
+        }
+
+        // Initalize all buttons in the Result object
+        private void initButtons()
+        {
+            int currTop = m_Top;
+            int currLeft = m_Left + k_PaddingAround;
+            byte numButtons = LetterSequence.LengthOfSequence;
+
+            for (int i = 0; i < numButtons; i++)
+            {
+                Button newButton = new Button();
+
+                if (i == numButtons / 2)
+                {
+                    currTop = m_Top + r_ButtonSize + r_PaddingBetweenButtons;
+                    currLeft = m_Left + k_PaddingAround;
+                }
+
+                newButton.Top = currTop;
+                newButton.Left = currLeft;
+                newButton.Width = r_ButtonSize;
+                newButton.Height = r_ButtonSize;
+                newButton.BackColor = Color.LightGray;
+                newButton.Enabled = false;
+                currLeft += r_ButtonSize + r_PaddingBetweenButtons;
+                r_Buttons.Add(newButton);
+            }
+
+            // after all Result buttons are set, update the m_Right value of the object
+            m_Right = currLeft + k_PaddingAround;
         }
 
         // ==================================================== Properties =========================================================
@@ -71,37 +102,6 @@ namespace B17_Ex05
                 r_Buttons[currentButtonInd].BackColor = sr_MisplacedGuessColor;
                 currentButtonInd++;
             }
-        }
-
-        // Initalize all buttons in the Result object
-        private void initButtons()
-        {
-            int currTop = m_Top;
-            int currLeft = m_Left + k_PaddingAround;
-            int numButtons = LetterSequence.LengthOfSequence;
-
-            for (int i = 0; i < numButtons; i++)
-            {
-                Button newButton = new Button();
-
-                if (i == numButtons / 2)
-                {
-                    currTop = m_Top + r_ButtonSize + r_PaddingBetweenButtons;
-                    currLeft = m_Left + k_PaddingAround;
-                }
-
-                newButton.Width = r_ButtonSize;
-                newButton.Height = r_ButtonSize;
-                newButton.BackColor = Color.LightGray;
-                newButton.Enabled = false;
-                newButton.Top = currTop;
-                newButton.Left = currLeft;
-                currLeft += r_ButtonSize + r_PaddingBetweenButtons;
-                r_Buttons.Add(newButton);
-            }
-
-            // after all Result buttons are set, update the m_Right value of the object
-            m_Right = currLeft + k_PaddingAround;
         }
     }
 }

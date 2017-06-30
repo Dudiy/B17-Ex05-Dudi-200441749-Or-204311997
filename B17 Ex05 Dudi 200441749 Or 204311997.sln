@@ -1,11 +1,16 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26403.3
+VisualStudioVersion = 15.0.26430.6
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "B17_Ex05", "B17_Ex05\B17_Ex05.csproj", "{1E0E9A42-2E79-4332-8889-B000E9F47ECD}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "B17_Ex05_GameLogic", "B17_Ex05.GameLogic\B17_Ex05_GameLogic.csproj", "{75CF6AA9-04A9-4376-B496-3F1099959016}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{A31FD60F-7411-4E01-8847-B46A4066CAA5}"
+	ProjectSection(SolutionItems) = preProject
+		Exercise Checking Report.txt = Exercise Checking Report.txt
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

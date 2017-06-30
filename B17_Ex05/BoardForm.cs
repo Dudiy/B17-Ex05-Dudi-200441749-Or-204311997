@@ -1,7 +1,7 @@
 ﻿/*
  * B17_Ex05: BoardForm.cs
  * 
- * The main form of the game, provides a user interface for the GameLogic
+ * The main form of the game, provides a user interface for the GameLogic.
  * The form consists of the correct guess sequence and all rounds of the game.
  * On each round a single row of buttons is enabled for the user to select 
  * colors and submit the selection.
@@ -20,9 +20,9 @@ namespace B17_Ex05
 {
     internal class BoardForm : Form
     {
-        private const int k_PaddingFromEdge = 10;
-        private const int k_TopOfFirstRound = 70;
-        private const byte k_PaddingBetweenRounds = 10;
+        private const short k_PaddingFromEdge = 10;
+        private const short k_TopOfFirstRound = 70;        
+        private const short k_PaddingBetweenRounds = 10;
         private readonly List<RoundUI> r_Rounds = new List<RoundUI>();
         private readonly GameLogic r_GameLogic;
         private CorrectSequenceButtons m_CorrectSequence;
@@ -41,10 +41,11 @@ namespace B17_Ex05
             initCorrectSequence();
             initRounds(r_GameLogic.MaxNumOfGuessesFromPlayer);
             // design of form
-            MaximizeBox = false;
-            MinimizeBox = false;
             StartPosition = FormStartPosition.CenterScreen;
             FormBorderStyle = FormBorderStyle.Fixed3D;
+            Text = "Bul Pgia";
+            MaximizeBox = false;
+            MinimizeBox = false;
         }
 
         private void initCorrectSequence()
@@ -61,6 +62,7 @@ namespace B17_Ex05
             for (int i = 0; i < i_NumRounds; i++)
             {
                 RoundUI newRound = new RoundUI(currentTop, currentLeft);
+
                 r_Rounds.Add(newRound);
                 addButtonsToControls(newRound.Buttons);
                 newRound.SubmitClicked += submitButton_Click;
@@ -81,7 +83,7 @@ namespace B17_Ex05
             }
         }
 
-        // ==================================================== Submit Round =======================================================
+        // ==================================================== Methods ============================================================
         // event handler for when on of the submit buttons is clicked.         
         private void submitButton_Click(object sender, EventArgs e)
         {
@@ -92,7 +94,6 @@ namespace B17_Ex05
             {
                 // When the RoundLogic property is set, the Result buttons are updated
                 round.RoundLogic = r_GameLogic.PlayRound(round.GetStringValue());
-
                 r_Rounds[m_ActiveRoundInd].IsActive = false;
                 setNextRound();
             }
@@ -104,6 +105,7 @@ namespace B17_Ex05
 
         private void setNextRound()
         {
+            // if the game is still running, go to the next round and activate it
             if (r_GameLogic.GameState == eGameState.Running)
             {
                 m_ActiveRoundInd++;
@@ -111,14 +113,12 @@ namespace B17_Ex05
             }
             else if (r_GameLogic.GameState == eGameState.PlayerWon)
             {
-                MessageBox.Show("You win ! Press OK to continue");
-
+                MessageBox.Show("You win! Press OK to continue");
                 m_CorrectSequence.ShowCorrectGuess();
             }
             else if (r_GameLogic.GameState == eGameState.PlayerLost)
             {
-                MessageBox.Show("You lose ! Press OK to view the correct sequence");
-
+                MessageBox.Show("You lose! Press OK to view the correct sequence");
                 m_CorrectSequence.ShowCorrectGuess();
             }
             else

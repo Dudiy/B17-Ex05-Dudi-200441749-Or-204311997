@@ -19,19 +19,19 @@ namespace B17_Ex05
 {
     internal class PlayerGuessButton : Button
     {
-        private const byte k_ButtonSize = 40;
-        private char m_CharValue;
+        private const short k_ButtonSize = 40;
+        private char? m_CharValue = null;
         private bool m_Hidden = false;
         private bool m_IsSet = false;
 
-        // ==================================================== Initialize =========================================================
+        // ==================================================== Initialize Button =========================================================
         internal PlayerGuessButton()
         {
             initButton();
         }
 
         internal PlayerGuessButton(int i_Top, int i_Left)
-            :this()
+            : this()
         {
             Top = i_Top;
             Left = i_Left;
@@ -69,10 +69,20 @@ namespace B17_Ex05
         // No set methoid for this property, can only be changed by setting the Color property or via SetColorByChar method
         internal char CharValue
         {
-            get { return m_CharValue; }
+            get
+            {
+                if (m_CharValue != null)
+                {
+                    return (char)m_CharValue;
+                }
+                else
+                {
+                    throw new Exception("Char value is not set");
+                }
+            }
         }
 
-        internal static byte ButtonSize
+        internal static short ButtonSize
         {
             get { return k_ButtonSize; }
         }
@@ -106,11 +116,12 @@ namespace B17_Ex05
         // ==================================================== Methods ====================================================
         /* update a button's color by setting it's m_CharValue.
          * we chose not to use a setter in order to improve readability */
-        internal void SetColorByChar(char i_Char)
+        internal void SetColorByChar(char? i_Char)
         {
             try
             {
                 eButtonColors colorValue = (eButtonColors)i_Char;
+
                 BackColor = Color.FromName(colorValue.ToString());
                 m_CharValue = i_Char;
                 m_IsSet = true;
@@ -119,6 +130,6 @@ namespace B17_Ex05
             {
                 throw new ArgumentException("The given char is not supported");
             }
-        }        
+        }
     }
 }

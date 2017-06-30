@@ -20,9 +20,9 @@ namespace B17_Ex05
 {
     internal class SequenceButtons
     {
+        private const short k_PaddingBetweenButtons = 5;
         private static readonly PickColorForm sr_PickColorForm = new PickColorForm();
         protected readonly List<Button> r_Buttons = new List<Button>(LetterSequence.LengthOfSequence);
-        private byte m_PaddingBetweenButtons = 5;
         private int m_Top = 0;
         private int m_Left = 0;
         private int m_Right = 0;
@@ -104,11 +104,11 @@ namespace B17_Ex05
                 newButton.Enabled = false;
                 newButton.Click += Button_Click;
                 r_Buttons.Add(newButton);
-                currLeft += newButton.Width + m_PaddingBetweenButtons;
+                currLeft += newButton.Width + k_PaddingBetweenButtons;
             }
 
             // after all buttons are positioned currLeft is the right of the last button with padding
-            m_Right = currLeft + m_PaddingBetweenButtons;
+            m_Right = currLeft + k_PaddingBetweenButtons;
         }
     }
 }

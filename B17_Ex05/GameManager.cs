@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Windows.Forms;
 
 namespace B17_Ex05
 {
@@ -12,13 +13,17 @@ namespace B17_Ex05
         public GameManager()
         {
             initGame();
-            m_BoardForm.ShowDialog();
         }
 
         private void initGame()
         {
-            m_InitForm.ShowDialog();
-            m_BoardForm = new BoardForm(m_InitForm.NumChoices);
+            DialogResult initFormResult = m_InitForm.ShowDialog();
+
+            if (initFormResult != DialogResult.Cancel)
+            {
+                m_BoardForm = new BoardForm(m_InitForm.NumChoices);
+                m_BoardForm.ShowDialog();
+            }
         }
     }
 }

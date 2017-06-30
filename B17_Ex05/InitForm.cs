@@ -19,6 +19,7 @@ namespace B17_Ex05
 
         private void initializeForm()
         {
+            ClientSize = new System.Drawing.Size(250, 100);
             Text = "Bool Pgia";
             StartPosition = FormStartPosition.CenterScreen;
             MaximizeBox = false;

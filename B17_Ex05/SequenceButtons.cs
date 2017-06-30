@@ -20,7 +20,7 @@ namespace B17_Ex05
 {
     internal class SequenceButtons
     {
-        private static readonly PickColorForm m_PickColorForm = new PickColorForm();
+        private static readonly PickColorForm sr_PickColorForm = new PickColorForm();
         protected readonly List<Button> r_Buttons = new List<Button>(LetterSequence.LengthOfSequence);
         private byte m_PaddingBetweenButtons = 5;
         private int m_Top = 0;
@@ -34,7 +34,7 @@ namespace B17_Ex05
             initButtons();
         }
 
-        // ==================================================== Properties ====================================================
+        // ==================================================== Properties =========================================================
         // the list of buttons, used by the BoardForm to add all buttons to the Contols
         internal List<Button> Buttons
         {
@@ -47,7 +47,7 @@ namespace B17_Ex05
             get { return m_Right; }
         }
 
-        // ==================================================== Methods ====================================================
+        // ==================================================== Methods ============================================================
         // Enable/Disable all buttons in the sequence
         internal void SetButtonsState(bool i_State)
         {
@@ -79,11 +79,11 @@ namespace B17_Ex05
          *  Will not update if the user closed the pickColor form without selecting a color */
         protected virtual void Button_Click(object sender, EventArgs e)
         {
-            DialogResult result = m_PickColorForm.ShowDialog();
+            DialogResult result = sr_PickColorForm.ShowDialog();
 
             if (result == DialogResult.OK)
             {
-                ((PlayerGuessButton)sender).Color = m_PickColorForm.ColorPicked;
+                ((PlayerGuessButton)sender).Color = sr_PickColorForm.ColorPicked;
             }
         }
 

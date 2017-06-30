@@ -17,7 +17,7 @@ namespace B17_Ex05
     {
         private string m_CorrectSequence;
 
-        // ==================================================== Initialize ====================================================
+        // ==================================================== Initialize =========================================================
         internal CorrectSequenceButtons(int i_Top, int i_Left, string i_CorrectSequence) 
             : base(i_Top, i_Left)
         {
@@ -40,7 +40,7 @@ namespace B17_Ex05
             }
         }
 
-        // ==================================================== Methods ====================================================
+        // ==================================================== Methods ============================================================
         internal void ShowCorrectGuess()
         {
             foreach (PlayerGuessButton button in r_Buttons)

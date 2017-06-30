@@ -38,7 +38,7 @@ namespace B17_Ex05
             initButtons();
         }
 
-        // ==================================================== Properties ====================================================
+        // ==================================================== Properties =========================================================
         internal List<Button> Buttons
         {
             get { return r_Buttons; }
@@ -50,7 +50,7 @@ namespace B17_Ex05
             get { return m_Right; }
         }
 
-        // ==================================================== Methods ====================================================
+        // ==================================================== Methods ============================================================
         /* After a round is played, the number of correct and mismatch guesses are used to 
          * update the colors of the Result buttons */
         internal void SetResult(int i_NumOfCorrectGuesses, int i_NumOfMismatches)

@@ -23,7 +23,7 @@ namespace B17_Ex05
         private Button m_ButtonNumChoices = new Button();
         private byte m_NumChoices = GameLogic.MinNumOfGuesses;
 
-        // ==================================================== Initialize ====================================================
+        // ==================================================== Initialize =========================================================
         internal InitForm()
         {
             initializeForm();
@@ -67,13 +67,13 @@ namespace B17_Ex05
             Controls.Add(m_ButtonStart);
         }
 
-        // ==================================================== Properties ====================================================
+        // ==================================================== Properties =========================================================
         internal byte NumChoices
         {
             get { return m_NumChoices; }
         }
 
-        // ==================================================== Buttons Events ====================================================
+        // ==================================================== Buttons Events =====================================================
         private void buttonStart_Click(object sender, EventArgs e)
         {
             DialogResult = DialogResult.OK;

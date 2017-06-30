@@ -25,16 +25,17 @@ namespace B17_Ex05
     {
         public event SubmitClickedEventHandler SubmitClicked;
         // according to stylecop a blank line is required here (?)
-        private List<Button> m_AllRoundButtons = new List<Button>();
+        private readonly List<Button> r_AllRoundButtons = new List<Button>();
         private Result m_Result;
         private SequenceButtons m_SequenceButtons;
         private Button m_SubmitButton = new Button();
-        private Round m_RoundLogic;
+        //private Round m_RoundLogic;
         private bool m_IsActive = false;
         private int m_Top = 0;
         private int m_Left = 0;
         private int m_Right = 0;
 
+        // ==================================================== Initialize =========================================================
         public RoundUI(int i_Top, int i_Left)
         {
             m_Top = i_Top;
@@ -43,22 +44,47 @@ namespace B17_Ex05
             m_Right = m_Result.Right;
         }
 
-        // ==================================================== Properties ====================================================
-        // Set the RoundUI's internal Round reference and update the Result object accordingly
-        internal Round RoundLogic
+        // initialize all buttons of a single RoundUI object
+        private void initAllButtons()
         {
-            set
-            {
-                // TODO should set result stay here or not?
-                m_RoundLogic = value;
-                m_Result.SetResult(value.NumOfCorrectGuesses, value.NumOfCorrectLetterInWrongPositions);
-            }
+            m_SequenceButtons = new SequenceButtons(m_Top, m_Left);
+            initSubmitButton();
+            m_Result = new Result(m_Top, m_SubmitButton.Right);
+            // add all buttons to m_AllRoundButtons
+            r_AllRoundButtons.AddRange(m_SequenceButtons.Buttons);
+            r_AllRoundButtons.Add(m_SubmitButton);
+            r_AllRoundButtons.AddRange(m_Result.Buttons);
         }
+
+        private void initSubmitButton()
+        {
+            m_SubmitButton.BackColor = Color.LightGray;
+            m_SubmitButton.Height = PlayerGuessButton.ButtonSize / 2;
+            m_SubmitButton.Width = PlayerGuessButton.ButtonSize;
+            m_SubmitButton.Top = m_Top + (PlayerGuessButton.ButtonSize / 4);
+            m_SubmitButton.Left = m_SequenceButtons.Right + 5;
+            m_SubmitButton.Text = "-->>";
+            m_SubmitButton.Enabled = false;
+            m_SubmitButton.Click += SubmitButton_Click;
+        }
+
+        // ==================================================== Properties =========================================================
+        // Set the RoundUI's internal Round reference and update the Result object accordingly
+        //internal Round RoundLogic
+        //{
+        //    //get { return m_RoundLogic; }
+        //    set
+        //    {
+        //        // TODO should set result stay here or not?
+        //        m_RoundLogic = value;
+        //        m_Result.SetResult(value.NumOfCorrectGuesses, value.NumOfCorrectLetterInWrongPositions);
+        //    }
+        //}
 
         // return a list of all the buttons in RoundUI for the BoardForm to add as controls
         internal List<Button> Buttons
         {
-            get { return m_AllRoundButtons; }
+            get { return r_AllRoundButtons; }
         }
 
         // When a round's IsActive property is changed, will update the enable property of all relevant buttons accordingly.
@@ -79,7 +105,7 @@ namespace B17_Ex05
             get { return m_Right; }
         }
 
-        // ==================================================== Methods ====================================================
+        // ==================================================== Methods ============================================================
         // Get the set of chars represented by the Round's button colors as a string
         internal string GetStringValue()
         {
@@ -99,6 +125,11 @@ namespace B17_Ex05
             return m_SequenceButtons.AllButtonsAreSet();
         }
 
+        internal void SetResult(int i_NumOfCorrectGuesses, int i_NumOfMismatches)
+        {
+            m_Result.SetResult(i_NumOfCorrectGuesses, i_NumOfMismatches);
+        }
+
         // Notify the BoardForm when submit is clicked and what round was it clicked on
         protected virtual void OnSubmitClick(EventArgs e)
         {
@@ -106,30 +137,6 @@ namespace B17_Ex05
             {
                 SubmitClicked.Invoke(this, e);
             }
-        }
-
-        // initialize all buttons of a single RoundUI object
-        private void initAllButtons()
-        {
-            m_SequenceButtons = new SequenceButtons(m_Top, m_Left);
-            initSubmitButton();
-            m_Result = new Result(m_Top, m_SubmitButton.Right);
-            // add all buttons to m_AllRoundButtons
-            m_AllRoundButtons.AddRange(m_SequenceButtons.Buttons);
-            m_AllRoundButtons.Add(m_SubmitButton);
-            m_AllRoundButtons.AddRange(m_Result.Buttons);
-        }
-
-        private void initSubmitButton()
-        {
-            m_SubmitButton.BackColor = Color.LightGray;
-            m_SubmitButton.Height = PlayerGuessButton.ButtonSize / 2;
-            m_SubmitButton.Width = PlayerGuessButton.ButtonSize;
-            m_SubmitButton.Top = m_Top + (PlayerGuessButton.ButtonSize / 4);
-            m_SubmitButton.Left = m_SequenceButtons.Right + 5;
-            m_SubmitButton.Text = "-->>";
-            m_SubmitButton.Enabled = false;
-            m_SubmitButton.Click += SubmitButton_Click;
         }
 
         private void SubmitButton_Click(object sender, EventArgs e)

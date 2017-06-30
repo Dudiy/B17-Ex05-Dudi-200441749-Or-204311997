@@ -16,7 +16,7 @@ namespace B17_Ex05
         private InitForm m_InitForm;
         private BoardForm m_BoardForm;
 
-        // ==================================================== Initialize ====================================================
+        // ==================================================== Initialize =========================================================
         internal GameManager()
         {
             m_InitForm = new InitForm();

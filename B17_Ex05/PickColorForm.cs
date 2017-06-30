@@ -55,12 +55,12 @@ namespace B17_Ex05
             Array availableColorNames = Enum.GetNames(typeof(eButtonColors));
             int numColors = availableColorNames.Length;
             int currentColorCounter = 0;
+            PlayerGuessButton newButton;
 
             // itterate through all colors in eButtonColos enum and set a button for each one
             foreach (string buttonColor in availableColorNames)
             {
-                PlayerGuessButton newButton = new PlayerGuessButton();
-
+                newButton = new PlayerGuessButton();
                 newButton.Color = Color.FromName(buttonColor);
                 newButton.Top = currentTopOfButton;
                 newButton.Left = currentLeftOfButton;
@@ -84,13 +84,13 @@ namespace B17_Ex05
             ClientSize = new Size(clientWidth, clientHeight);
         }
 
-        // ==================================================== Properties ====================================================
+        // ==================================================== Properties =========================================================
         internal Color ColorPicked
         {
             get { return m_ColorPicked; }
         }
 
-        // ==================================================== Methods ====================================================
+        // ==================================================== Methods ============================================================
         // an event handler for when one of the buttons is clicked
         private void button_Click(object sender, EventArgs e)
         {

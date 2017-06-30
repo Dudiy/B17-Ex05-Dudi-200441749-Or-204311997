@@ -22,7 +22,7 @@ namespace B17_Ex05
     {
         private const int k_PaddingFromEdge = 10;
         private const int k_TopOfFirstRound = 70;
-        private const byte m_PaddingBetweenRounds = 10;
+        private const byte k_PaddingBetweenRounds = 10;
         private readonly List<RoundUI> r_Rounds = new List<RoundUI>();
         private readonly GameLogic r_GameLogic;
         private CorrectSequenceButtons m_CorrectSequence;
@@ -63,9 +63,9 @@ namespace B17_Ex05
                 RoundUI newRound = new RoundUI(currentTop, currentLeft);
                 r_Rounds.Add(newRound);
                 addButtonsToControls(newRound.Buttons);
-                newRound.SubmitClicked += roundSubmitClicked;
+                newRound.SubmitClicked += submitButton_Click;
                 // update top
-                currentTop += PlayerGuessButton.ButtonSize + m_PaddingBetweenRounds;
+                currentTop += PlayerGuessButton.ButtonSize + k_PaddingBetweenRounds;
             }
 
             r_Rounds[0].IsActive = true;
@@ -81,9 +81,9 @@ namespace B17_Ex05
             }
         }
 
-        // ==================================================== Submit Round ====================================================
+        // ==================================================== Submit Round =======================================================
         // event handler for when on of the submit buttons is clicked.         
-        private void roundSubmitClicked(object sender, EventArgs e)
+        private void submitButton_Click(object sender, EventArgs e)
         {
             RoundUI round = sender as RoundUI;
 
@@ -91,7 +91,11 @@ namespace B17_Ex05
             if (round.AllButtonsAreSet())
             {
                 // When the RoundLogic property is set, the Result buttons are updated
-                round.RoundLogic = r_GameLogic.PlayRound(round.GetStringValue());
+                //round.RoundLogic = r_GameLogic.PlayRound(round.GetStringValue());
+
+                Round roundLogic = r_GameLogic.PlayRound(round.GetStringValue());
+
+                round.SetResult(roundLogic.NumOfCorrectGuesses, roundLogic.NumOfCorrectLetterInWrongPositions);
                 r_Rounds[m_ActiveRoundInd].IsActive = false;
                 setNextRound();
             }

@@ -25,7 +25,7 @@ namespace B17_Ex05
         private bool m_Hidden = false;
         private bool m_IsSet = false;
 
-        // ==================================================== Initialize ====================================================
+        // ==================================================== Initialize =========================================================
         internal PlayerGuessButton()
         {
             initButton();

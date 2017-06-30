@@ -57,17 +57,7 @@ namespace B17_Ex05
             r_AllRoundButtons.Add(m_SubmitButton);
             r_AllRoundButtons.AddRange(m_Result.Buttons);
         }
-
-        /*  Event handler for when a button in the round is clicked.
-            enables the submit if all 4 buttons are colored */
-        private void sequenceButtons_ButtonClicked(object sender, EventArgs e)
-        {
-            if (AllButtonsAreSet())
-            {
-                m_SubmitButton.Enabled = true;
-            }
-        }
-
+        
         private void initSubmitButton()
         {
             m_SubmitButton.Width = PlayerGuessButton.ButtonSize;
@@ -139,6 +129,22 @@ namespace B17_Ex05
             return m_SequenceButtons.AllButtonsAreSet();
         }
 
+
+        /*  Event handler for when a button in the round is clicked.
+            enables the submit if all 4 buttons are colored */
+        private void sequenceButtons_ButtonClicked(object sender, EventArgs e)
+        {
+            if (AllButtonsAreSet())
+            {
+                m_SubmitButton.Enabled = true;
+            }
+        }
+
+        private void SubmitButton_Click(object sender, EventArgs e)
+        {
+            OnSubmitClick(e);
+        }
+
         // Notify the BoardForm when submit is clicked and what round was it clicked on
         protected virtual void OnSubmitClick(EventArgs e)
         {
@@ -146,11 +152,6 @@ namespace B17_Ex05
             {
                 SubmitClicked.Invoke(this, e);
             }
-        }
-
-        private void SubmitButton_Click(object sender, EventArgs e)
-        {
-            OnSubmitClick(e);
         }
     }
 }

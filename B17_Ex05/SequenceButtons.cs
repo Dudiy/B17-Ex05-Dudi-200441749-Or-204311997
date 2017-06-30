@@ -13,9 +13,6 @@
 */
 using System;
 using System.Collections.Generic;
-using System.Text;
-using B17_Ex05_GameLogic;
-using System.Drawing;
 using System.Windows.Forms;
 using B17_Ex05_GameLogic;
 
@@ -24,13 +21,12 @@ namespace B17_Ex05
     internal class SequenceButtons
     {
         private static readonly PickColorForm m_PickColorForm = new PickColorForm();
-        protected readonly List<PlayerGuessButton> r_Buttons = new List<PlayerGuessButton>(LetterSequence.LengthOfSequence);
+        protected readonly List<Button> r_Buttons = new List<Button>(LetterSequence.LengthOfSequence);
         private byte m_PaddingBetweenButtons = 5;
         private int m_Top = 0;
         private int m_Left = 0;
         private int m_Right = 0;
 
-        // ==================================================== Initialize ====================================================
         internal SequenceButtons(int i_Top, int i_Left)
         {
             m_Top = i_Top;
@@ -40,7 +36,7 @@ namespace B17_Ex05
 
         // ==================================================== Properties ====================================================
         // the list of buttons, used by the BoardForm to add all buttons to the Contols
-        internal List<PlayerGuessButton> Buttons
+        internal List<Button> Buttons
         {
             get { return r_Buttons; }
         }
@@ -54,24 +50,13 @@ namespace B17_Ex05
         // ==================================================== Methods ====================================================
         // Enable/Disable all buttons in the sequence
         internal void SetButtonsState(bool i_State)
-        private void initButtons()
         {
             foreach (PlayerGuessButton button in r_Buttons)
             {
                 button.Enabled = i_State;
             }
-            m_Right = currLeft + m_PaddingBetweenButtons;
         }
 
-        // ==================================================== Properties ====================================================
-        internal List<Button> Buttons
-        {
-            get { return m_Buttons; }
-        }
-
-        internal int Right
-        {
-            get { return m_Right; }
         // Check if all buttons are colored
         internal bool AllButtonsAreSet()
         {
@@ -89,16 +74,11 @@ namespace B17_Ex05
             return allSet;
         }
 
-
-        // ==================================================== Methods ====================================================
-        internal void SetButtonsState(bool i_ActiveState)
-        {
-            foreach (PlayerGuessButton button in m_Buttons)
         /*  Event listener for when a button is clicked.
          *  Shows the pickColor dialog and updates the color according to the user's choice.
          *  Will not update if the user closed the pickColor form without selecting a color */
         protected virtual void Button_Click(object sender, EventArgs e)
-        {            
+        {
             DialogResult result = m_PickColorForm.ShowDialog();
 
             if (result == DialogResult.OK)
@@ -129,17 +109,6 @@ namespace B17_Ex05
 
             // after all buttons are positioned currLeft is the right of the last button with padding
             m_Right = currLeft + m_PaddingBetweenButtons;
-        }
-
-        // ==================================================== Buttons Events ====================================================
-        private void Button_Click(object sender, EventArgs e)
-        {
-            DialogResult result = m_PickColorForm.ShowDialog();
-            if (result == DialogResult.OK)
-            {
-                ((PlayerGuessButton)sender).Color = m_PickColorForm.ColorPicked;
-            }
-            // TODO does the color on the button really change?
         }
     }
 }

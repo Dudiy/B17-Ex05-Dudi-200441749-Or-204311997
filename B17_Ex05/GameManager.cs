@@ -12,28 +12,24 @@ namespace B17_Ex05
 {
     internal class GameManager
     {
-        private InitForm m_InitForm = new InitForm();
+        private InitForm m_InitForm;
         private BoardForm m_BoardForm;
 
         // ==================================================== Initialize ====================================================
         internal GameManager()
         {
-            initGame();
+            m_InitForm = new InitForm();
         }
 
-        private void initGame()
+        internal void Run()
         {
             DialogResult initFormResult = m_InitForm.ShowDialog();
 
             if (initFormResult != DialogResult.Cancel)
             {
                 m_BoardForm = new BoardForm(m_InitForm.NumChoices);
+                m_BoardForm.ShowDialog();
             }
-        }
-
-        internal void Run()
-        {
-            m_BoardForm.ShowDialog();
         }
     }
 }

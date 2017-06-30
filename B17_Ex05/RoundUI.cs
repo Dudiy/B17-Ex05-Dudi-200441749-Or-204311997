@@ -11,6 +11,7 @@
  * 200441749 - Dudi Yecheskel 
 */
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
@@ -32,12 +33,35 @@ namespace B17_Ex05
         private int m_Left = 0;
         private int m_Right = 0;
 
-        public RoundUI(int i_Top, int i_Left)
+        // ==================================================== Initialize ====================================================
+        internal RoundUI(int i_Top, int i_Left)
         {
             m_Top = i_Top;
             m_Left = i_Left;
             initAllButtons();
             m_Right = Result.Right;
+        }
+
+        // initialize all buttons of a single RoundUI object
+        private void initAllButtons()
+        {
+            m_SequenceButtons = new SequenceButtons(m_Top, m_Left);
+            initSubmitButton();
+            // TODO change 10 to const
+            int resultLeft = m_SubmitButton.Right + 10;
+            m_Result = new Result(m_Top, resultLeft);
+        }
+
+        private void initSubmitButton()
+        {
+            m_SubmitButton.BackColor = Color.LightGray;
+            m_SubmitButton.Height = PlayerGuessButton.ButtonSize / 2;
+            m_SubmitButton.Width = PlayerGuessButton.ButtonSize;
+            m_SubmitButton.Top = m_Top + (PlayerGuessButton.ButtonSize / 4);
+            m_SubmitButton.Left = m_SequenceButtons.Right + 5;
+            m_SubmitButton.Text = "-->>";
+            m_SubmitButton.Enabled = false;
+            m_SubmitButton.Click += SubmitButton_Click;
         }
 
         // ==================================================== Properties ====================================================
@@ -88,38 +112,6 @@ namespace B17_Ex05
             }
         }
 
-        // ==================================================== Methods ====================================================
-        // initialize all buttons of a single RoundUI object
-        private void initAllButtons()
-        {
-            m_SequenceButtons = new SequenceButtons(m_Top, m_Left);
-            initSubmitButton();
-            // TODO change 10 to const
-            int resultLeft = m_SubmitButton.Right + 10;
-            m_Result = new Result(m_Top, resultLeft);
-        }
-
-        private void initSubmitButton()
-        {
-            m_SubmitButton.BackColor = Color.LightGray;
-            m_SubmitButton.Height = PlayerGuessButton.ButtonSize / 2;
-            m_SubmitButton.Width = PlayerGuessButton.ButtonSize;
-            m_SubmitButton.Top = m_Top + (PlayerGuessButton.ButtonSize / 4);
-            m_SubmitButton.Left = m_SequenceButtons.Right + 5;
-            m_SubmitButton.Text = "-->>";
-            m_SubmitButton.Enabled = false;
-            m_SubmitButton.Click += SubmitButton_Click;
-        }
-       
-        // Notify the BoardForm when submit is clicked and what round was it clicked on
-        private void OnSubmitClick()
-        {
-            if (SubmitClicked != null)
-            {
-                SubmitClicked.Invoke(this);
-            }
-        }
-
         internal List<Button> Buttons
         {
             get
@@ -134,6 +126,7 @@ namespace B17_Ex05
             }
         }
 
+        // ==================================================== Methods ====================================================
         public string GetStringValue()
         {
             StringBuilder stringValue = new StringBuilder();
@@ -146,15 +139,25 @@ namespace B17_Ex05
             return stringValue.ToString();
         }
 
-        private void SubmitButton_Click(object sender, EventArgs e)
-        {
-            OnSubmitClick();
-        }
-
         // Check if all buttons in the current have a color
         internal bool AllButtonsAreSet()
         {
             return m_SequenceButtons.AllButtonsAreSet();
+        }
+
+        // ==================================================== Button Events ====================================================
+        // Notify the BoardForm when submit is clicked and what round was it clicked on
+        private void OnSubmitClick()
+        {
+            if (SubmitClicked != null)
+            {
+                SubmitClicked.Invoke(this);
+            }
+        }
+
+        private void SubmitButton_Click(object sender, EventArgs e)
+        {
+            OnSubmitClick();
         }
     }
 }

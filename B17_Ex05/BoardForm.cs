@@ -65,7 +65,7 @@ namespace B17_Ex05
                 newRound = new RoundUI(currentTop, currentLeft);
                 r_Rounds.Add(newRound);
                 addButtonsToControls(newRound.Buttons);
-                newRound.SubmitClicked += roundSubmitClicked;
+                newRound.SubmitClicked += RoundSubmitClicked;
                 // update top
                 currentTop += PlayerGuessButton.ButtonSize + m_PaddingBetweenRounds;
             }
@@ -85,7 +85,7 @@ namespace B17_Ex05
         }
 
         // ==================================================== Submit Round ====================================================
-        private void roundSubmitClicked(object sender)
+        private void RoundSubmitClicked(object sender)
         {
             RoundUI round = sender as RoundUI;
 

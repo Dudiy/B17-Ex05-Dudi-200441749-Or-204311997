@@ -91,11 +91,8 @@ namespace B17_Ex05
             if (round.AllButtonsAreSet())
             {
                 // When the RoundLogic property is set, the Result buttons are updated
-                //round.RoundLogic = r_GameLogic.PlayRound(round.GetStringValue());
+                round.RoundLogic = r_GameLogic.PlayRound(round.GetStringValue());
 
-                Round roundLogic = r_GameLogic.PlayRound(round.GetStringValue());
-
-                round.SetResult(roundLogic.NumOfCorrectGuesses, roundLogic.NumOfCorrectLetterInWrongPositions);
                 r_Rounds[m_ActiveRoundInd].IsActive = false;
                 setNextRound();
             }

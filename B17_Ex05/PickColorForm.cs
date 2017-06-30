@@ -47,23 +47,20 @@ namespace B17_Ex05
             MinimizeBox = false;
         }
 
-        // TODO is this function too long?
         private void initButtons()
         {
+            Array availableColorNames = Enum.GetNames(typeof(eButtonColors));
             int currentTopOfButton = k_PaddingFromEdge;
             int currentLeftOfButton = k_PaddingFromEdge;
-            Array availableColorNames = Enum.GetNames(typeof(eButtonColors));
             int numColors = availableColorNames.Length;
             int currentColorCounter = 0;
-            PlayerGuessButton newButton;
 
             // itterate through all colors in eButtonColos enum and set a button for each one
             foreach (string buttonColor in availableColorNames)
             {
-                newButton = new PlayerGuessButton();
+                PlayerGuessButton newButton = new PlayerGuessButton(currentTopOfButton, currentLeftOfButton);
+
                 newButton.Color = Color.FromName(buttonColor);
-                newButton.Top = currentTopOfButton;
-                newButton.Left = currentLeftOfButton;
                 newButton.Click += button_Click;
                 Controls.Add(newButton);
                 // update left and top for next button

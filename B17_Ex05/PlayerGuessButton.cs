@@ -19,8 +19,7 @@ namespace B17_Ex05
 {
     internal class PlayerGuessButton : Button
     {
-        // is it ok to use public const here?
-        public const byte k_ButtonSize = 40;
+        private const byte k_ButtonSize = 40;
         private char m_CharValue;
         private bool m_Hidden = false;
         private bool m_IsSet = false;
@@ -29,6 +28,13 @@ namespace B17_Ex05
         internal PlayerGuessButton()
         {
             initButton();
+        }
+
+        internal PlayerGuessButton(int i_Top, int i_Left)
+            :this()
+        {
+            Top = i_Top;
+            Left = i_Left;
         }
 
         private void initButton()
@@ -66,7 +72,6 @@ namespace B17_Ex05
             get { return m_CharValue; }
         }
 
-        // TODO if its ok to use public const we can delete this
         internal static byte ButtonSize
         {
             get { return k_ButtonSize; }

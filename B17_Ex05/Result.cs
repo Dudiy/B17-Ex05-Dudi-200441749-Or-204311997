@@ -23,8 +23,6 @@ namespace B17_Ex05
         private static readonly Color sr_CorrectGuessColor = Color.Black;
         private static readonly Color sr_MisplacedGuessColor = Color.Yellow;
         protected readonly List<Button> r_Buttons = new List<Button>();
-        // TODO if we can change PlayerGuessButton.k_ButtonSize to const we can use const here:
-        //private const byte k_ButtonSize = (byte)(0.45 * PlayerGuessButton.k_ButtonSize);
         private readonly byte r_ButtonSize = (byte)(0.45 * PlayerGuessButton.ButtonSize);
         private readonly byte r_PaddingBetweenButtons = (byte)(0.05 * PlayerGuessButton.ButtonSize);
         private int m_Top = 0;

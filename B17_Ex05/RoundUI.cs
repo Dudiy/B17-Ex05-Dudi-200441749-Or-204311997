@@ -26,10 +26,10 @@ namespace B17_Ex05
         public event SubmitClickedEventHandler SubmitClicked;
         // according to stylecop a blank line is required here (?)
         private readonly List<Button> r_AllRoundButtons = new List<Button>();
-        private Result m_Result;
-        private SequenceButtons m_SequenceButtons;
+        private Result m_Result = null;
+        private SequenceButtons m_SequenceButtons = null;
         private Button m_SubmitButton = new Button();
-        //private Round m_RoundLogic;
+        private Round m_RoundLogic = null;
         private bool m_IsActive = false;
         private int m_Top = 0;
         private int m_Left = 0;
@@ -70,16 +70,14 @@ namespace B17_Ex05
 
         // ==================================================== Properties =========================================================
         // Set the RoundUI's internal Round reference and update the Result object accordingly
-        //internal Round RoundLogic
-        //{
-        //    //get { return m_RoundLogic; }
-        //    set
-        //    {
-        //        // TODO should set result stay here or not?
-        //        m_RoundLogic = value;
-        //        m_Result.SetResult(value.NumOfCorrectGuesses, value.NumOfCorrectLetterInWrongPositions);
-        //    }
-        //}
+        internal Round RoundLogic
+        {
+            set
+            {
+                m_RoundLogic = value;
+                m_Result.SetResult(value.NumOfCorrectGuesses, value.NumOfCorrectLetterInWrongPositions);
+            }
+        }
 
         // return a list of all the buttons in RoundUI for the BoardForm to add as controls
         internal List<Button> Buttons

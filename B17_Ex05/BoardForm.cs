@@ -44,7 +44,7 @@ namespace B17_Ex05
             MaximizeBox = false;
             MinimizeBox = false;
             StartPosition = FormStartPosition.CenterScreen;
-            FormBorderStyle = FormBorderStyle.Fixed3D;            
+            FormBorderStyle = FormBorderStyle.Fixed3D;
         }
 
         private void initCorrectSequence()
@@ -57,7 +57,7 @@ namespace B17_Ex05
         {
             int currentLeft = k_PaddingFromEdge;
             int currentTop = k_TopOfFirstRound;
-            
+
             for (int i = 0; i < i_NumRounds; i++)
             {
                 RoundUI newRound = new RoundUI(currentTop, currentLeft);
@@ -72,7 +72,7 @@ namespace B17_Ex05
             // after setting all rounds, update the ClientSize to fit
             ClientSize = new Size(r_Rounds[0].Right, currentTop);
         }
-        
+
         private void addButtonsToControls(List<Button> i_Buttons)
         {
             foreach (Button button in i_Buttons)
@@ -82,9 +82,7 @@ namespace B17_Ex05
         }
 
         // ==================================================== Submit Round ====================================================
-        /* event handler for when on of the submit buttons is clicked.
-         
-         */
+        // event handler for when on of the submit buttons is clicked.         
         private void roundSubmitClicked(object sender, EventArgs e)
         {
             RoundUI round = sender as RoundUI;
@@ -92,9 +90,10 @@ namespace B17_Ex05
             // verify all buttons in the sender's round are colored
             if (round.AllButtonsAreSet())
             {
-                SubmitClicked(round);
+                // When the RoundLogic property is set, the Result buttons are updated
+                round.RoundLogic = r_GameLogic.PlayRound(round.GetStringValue());
                 r_Rounds[m_ActiveRoundInd].IsActive = false;
-                checkState();
+                setNextRound();
             }
             else
             {
@@ -102,13 +101,7 @@ namespace B17_Ex05
             }
         }
 
-        internal void SubmitClicked(RoundUI i_RoundUI)
-        {
-            // When the RoundLogic property is set, the Result buttons are updated
-            i_RoundUI.RoundLogic = r_GameLogic.PlayRound(i_RoundUI.GetStringValue());
-        }
-
-        private void checkState()
+        private void setNextRound()
         {
             if (r_GameLogic.GameState == eGameState.Running)
             {

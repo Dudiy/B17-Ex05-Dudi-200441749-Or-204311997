@@ -76,8 +76,28 @@ namespace B17_Ex05
                 SubmitClicked(round);
                 r_Rounds[m_ActiveRoundInd].IsActive = false;
                 // TODO if at the last round stop game
-                m_ActiveRoundInd++;
-                r_Rounds[m_ActiveRoundInd].IsActive = true;
+                if (m_GameLogic.GameState == eGameState.Running)
+                {
+                    m_ActiveRoundInd++;
+                    r_Rounds[m_ActiveRoundInd].IsActive = true;
+                }
+                else if (m_GameLogic.GameState == eGameState.PlayerWon)
+                {
+                    MessageBox.Show("You win ! Press OK to continue");
+
+                    m_CorrectSequence.ShowCorrectGuess();
+                }
+                else if (m_GameLogic.GameState == eGameState.PlayerLost)
+                {
+                    MessageBox.Show("You lose ! Press OK to view the correct sequence");
+
+                    m_CorrectSequence.ShowCorrectGuess();
+                }
+                else
+                {
+                    throw new Exception("Unknown game state");
+                }
+
             }
             else
             {

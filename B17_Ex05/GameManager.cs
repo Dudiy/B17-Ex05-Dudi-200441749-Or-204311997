@@ -1,6 +1,7 @@
 ﻿/*
  * B17_Ex05: GameManager.cs
  * 
+ * The manager of the app, connects between the InitForm and the BoardForm. 
  * 
  * Written by:
  * 204311997 - Or Mantzur
@@ -25,6 +26,7 @@ namespace B17_Ex05
         {
             DialogResult initFormResult = m_InitForm.ShowDialog();
 
+            // if the user closes the InitForm without selecting "Start" do not start the game
             if (initFormResult != DialogResult.Cancel)
             {
                 m_BoardForm = new BoardForm(m_InitForm.NumChoices);

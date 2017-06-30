@@ -1,7 +1,8 @@
 ﻿/*
  * B17_Ex05: InitForm.cs
  * 
- * Inherits from the "Form" class.
+ * The for that initializes the game, gets the number of guesses from the user and 
+ * starts a new game when "Start" is clicked
  * 
  * Written by:
  * 204311997 - Or Mantzur
@@ -9,12 +10,15 @@
  */
 using System;
 using System.Windows.Forms;
+using System.Drawing;
 using B17_Ex05_GameLogic;
 
 namespace B17_Ex05
 {
     internal class InitForm : Form
     {
+        private const int k_ClientWidth = 250;
+        private const int k_ClientHeight = 100;
         private Button m_ButtonStart = new Button();
         private Button m_ButtonNumChoices = new Button();
         private byte m_NumChoices = GameLogic.MinNumOfGuesses;
@@ -27,13 +31,12 @@ namespace B17_Ex05
 
         private void initializeForm()
         {
-            ClientSize = new System.Drawing.Size(250, 100);
-            Text = "Bool Pgia";
-            StartPosition = FormStartPosition.CenterScreen;
-            MaximizeBox = false;
-            MinimizeBox = false;
+            ClientSize = new Size(k_ClientWidth, k_ClientHeight);
             StartPosition = FormStartPosition.CenterScreen;
             FormBorderStyle = FormBorderStyle.Fixed3D;
+            MaximizeBox = false;
+            MinimizeBox = false;
+            Text = "Bool Pgia";
         }
 
         protected override void OnLoad(EventArgs e)

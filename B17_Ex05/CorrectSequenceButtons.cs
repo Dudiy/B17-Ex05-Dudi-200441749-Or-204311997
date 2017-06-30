@@ -1,7 +1,9 @@
 ﻿/*
  * B17_Ex05: CorrectSequenceButtons.cs
  * 
- * Inherits from the "SequenceButtons" class.
+ * Inherits from the "SequenceButtons" class. 
+ * This class holds the correct sequence and hides it from the user untill
+ * the game ends.
  * 
  * Written by:
  * 204311997 - Or Mantzur
@@ -23,14 +25,12 @@ namespace B17_Ex05
             initButtons();
         }
 
-        internal CorrectSequenceButtons(Point i_Point, string i_CorrectSequence) 
-            : this(i_Point.X, i_Point.Y, i_CorrectSequence)
-        {
-        }
-
         private void initButtons()
         {
             byte charIndex = 0;
+
+            /* Itterate through all Sequence buttons update them according to the 
+             * m_CorrectSequence string */
             foreach (PlayerGuessButton button in r_Buttons)
             {
                 button.SetColorByChar(m_CorrectSequence[charIndex]);

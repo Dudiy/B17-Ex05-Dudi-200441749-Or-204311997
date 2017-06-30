@@ -1,9 +1,10 @@
 ﻿/*
  * B17_Ex05: BoardForm.cs
  * 
- * Inherits from the "Form" class.
- * 
- * That class is the board of the game.
+ * The main form of the game, provides a user interface for the GameLogic
+ * The form consists of the correct guess sequence and all rounds of the game.
+ * On each round a single row of buttons is enabled for the user to select 
+ * colors and submit the selection.
  * 
  * Written by:
  * 204311997 - Or Mantzur
@@ -12,26 +13,25 @@
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using B17_Ex05_GameLogic;
 using System.Drawing;
+using B17_Ex05_GameLogic;
 
 namespace B17_Ex05
 {
     internal class BoardForm : Form
     {
-        private GameLogic m_GameLogic;
-        private CorrectSequenceButtons m_CorrectSequence;
-        private readonly List<RoundUI> r_Rounds = new List<RoundUI>();
-        private byte m_ActiveRoundInd = 0;
-        private Point m_CorrectSequencePos = new Point(10, 10);
-        private Point m_FirstRoundPos = new Point(10, 70);
+        private const int k_PaddingFromEdge = 10;
+        private const int k_TopOfFirstRound = 70;
         private const byte m_PaddingBetweenRounds = 10;
-        private Size clientSize = new Size();
+        private readonly List<RoundUI> r_Rounds = new List<RoundUI>();
+        private readonly GameLogic r_GameLogic;
+        private CorrectSequenceButtons m_CorrectSequence;
+        private byte m_ActiveRoundInd = 0;
 
         // ==================================================== Initialize Form ====================================================
         internal BoardForm(byte i_NumRounds)
         {
-            m_GameLogic = new GameLogic(i_NumRounds);
+            r_GameLogic = new GameLogic(i_NumRounds);
             initializeForm();
         }
 
@@ -39,9 +39,8 @@ namespace B17_Ex05
         {
             // initialize buttons
             initCorrectSequence();
-            initRounds(m_GameLogic.MaxNumOfGuessesFromPlayer);
+            initRounds(r_GameLogic.MaxNumOfGuessesFromPlayer);
             // design of form
-            ClientSize = clientSize;
             MaximizeBox = false;
             MinimizeBox = false;
             StartPosition = FormStartPosition.CenterScreen;
@@ -50,32 +49,30 @@ namespace B17_Ex05
 
         private void initCorrectSequence()
         {
-            m_CorrectSequence = new CorrectSequenceButtons(m_CorrectSequencePos.X, m_CorrectSequencePos.Y, m_GameLogic.ComputerSequence);
+            m_CorrectSequence = new CorrectSequenceButtons(k_PaddingFromEdge, k_PaddingFromEdge, r_GameLogic.ComputerSequence);
             addButtonsToControls(m_CorrectSequence.Buttons);
         }
 
         private void initRounds(byte i_NumRounds)
         {
-            RoundUI newRound;
-            int currentTop = m_FirstRoundPos.Y;
-            int currentLeft = m_FirstRoundPos.X;
+            int currentLeft = k_PaddingFromEdge;
+            int currentTop = k_TopOfFirstRound;
             
             for (int i = 0; i < i_NumRounds; i++)
             {
-                newRound = new RoundUI(currentTop, currentLeft);
+                RoundUI newRound = new RoundUI(currentTop, currentLeft);
                 r_Rounds.Add(newRound);
                 addButtonsToControls(newRound.Buttons);
-                newRound.SubmitClicked += RoundSubmitClicked;
+                newRound.SubmitClicked += roundSubmitClicked;
                 // update top
                 currentTop += PlayerGuessButton.ButtonSize + m_PaddingBetweenRounds;
             }
 
-            r_Rounds[m_ActiveRoundInd].IsActive = true;
-            // boardForm design
-            clientSize.Width = r_Rounds[0].Right;
-            clientSize.Height = currentTop;
+            r_Rounds[0].IsActive = true;
+            // after setting all rounds, update the ClientSize to fit
+            ClientSize = new Size(r_Rounds[0].Right, currentTop);
         }
-
+        
         private void addButtonsToControls(List<Button> i_Buttons)
         {
             foreach (Button button in i_Buttons)
@@ -85,10 +82,14 @@ namespace B17_Ex05
         }
 
         // ==================================================== Submit Round ====================================================
-        private void RoundSubmitClicked(object sender, EventArgs e)
+        /* event handler for when on of the submit buttons is clicked.
+         
+         */
+        private void roundSubmitClicked(object sender, EventArgs e)
         {
             RoundUI round = sender as RoundUI;
 
+            // verify all buttons in the sender's round are colored
             if (round.AllButtonsAreSet())
             {
                 SubmitClicked(round);
@@ -104,23 +105,23 @@ namespace B17_Ex05
         internal void SubmitClicked(RoundUI i_RoundUI)
         {
             // When the RoundLogic property is set, the Result buttons are updated
-            i_RoundUI.RoundLogic = m_GameLogic.PlayRound(i_RoundUI.GetStringValue());
+            i_RoundUI.RoundLogic = r_GameLogic.PlayRound(i_RoundUI.GetStringValue());
         }
 
         private void checkState()
         {
-            if (m_GameLogic.GameState == eGameState.Running)
+            if (r_GameLogic.GameState == eGameState.Running)
             {
                 m_ActiveRoundInd++;
                 r_Rounds[m_ActiveRoundInd].IsActive = true;
             }
-            else if (m_GameLogic.GameState == eGameState.PlayerWon)
+            else if (r_GameLogic.GameState == eGameState.PlayerWon)
             {
                 MessageBox.Show("You win ! Press OK to continue");
 
                 m_CorrectSequence.ShowCorrectGuess();
             }
-            else if (m_GameLogic.GameState == eGameState.PlayerLost)
+            else if (r_GameLogic.GameState == eGameState.PlayerLost)
             {
                 MessageBox.Show("You lose ! Press OK to view the correct sequence");
 
@@ -133,17 +134,3 @@ namespace B17_Ex05
         }
     }
 }
-
-        //private void SubmitButton_Click(object sender, EventArgs e)
-        //{
-        //    RoundUI round = sender as RoundUI;
-
-        //    if (round.AllButtonsAreSet())
-        //    {
-        //        SubmitClicked(round);
-        //    }
-        //    else
-        //    {
-        //        MessageBox.Show("Not all Buttons are set, select colors and try again");
-        //    }
-        //}

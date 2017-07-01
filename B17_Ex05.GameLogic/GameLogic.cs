@@ -90,8 +90,7 @@ namespace B17_Ex05_GameLogic
             {
                 m_CurrentGameState = eGameState.PlayerWon;
             }
-
-            if (m_RoundsPlayed.Count >= m_MaxNumOfGuessesFromPlayer)
+            else if (m_RoundsPlayed.Count >= m_MaxNumOfGuessesFromPlayer)
             {
                 m_CurrentGameState = eGameState.PlayerLost;
             }
